@@ -10,7 +10,7 @@ from Crypto.Cipher import AES
 from config import OUTPUT_DIR
 from stravalib.exc import ActivityUploadFailed, RateLimitTimeout
 from utils import make_strava_client, upload_file_to_strava
-from keep_sync import KEEP_DATA_TYPE_API, get_all_keep_tracks
+from keep_sync import  get_all_keep_tracks
 from strava_sync import run_strava_sync
 
 """
@@ -72,10 +72,10 @@ if __name__ == "__main__":
     )
 
     options = parser.parse_args()
-    for api in options.sync_types:
-        assert (
-            api in KEEP_DATA_TYPE_API
-        ), f"{api} are not supported type, please make sure that the type entered in the {KEEP_DATA_TYPE_API}"
+    # for api in options.sync_types:
+    #     assert (
+    #         api in KEEP_DATA_TYPE_API
+    #     ), f"{api} are not supported type, please make sure that the type entered in the {KEEP_DATA_TYPE_API}"
     new_tracks = run_keep_sync(
         options.phone_number, options.password, options.sync_types, True
     )
