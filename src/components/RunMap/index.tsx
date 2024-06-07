@@ -120,6 +120,7 @@ const RunMap = ({
   const style: React.CSSProperties = {
     width: '100%',
     height: MAP_HEIGHT,
+    borderRadius: '20px'
   };
   const fullscreenButton: React.CSSProperties = {
     position: 'absolute',
