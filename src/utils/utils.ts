@@ -76,13 +76,12 @@ const convertMovingTime2Sec = (moving_time: string): number => {
 };
 
 const formatRunTime = (moving_time: string): string => {
-  const totalSeconds = convertMovingTime2Sec(moving_time);
-  const seconds = totalSeconds % 60;
-  const minutes = (totalSeconds - seconds) / 60;
-  if (minutes === 0) {
-    return seconds + 's';
-  }
-  return minutes + 'min';
+  let seconds = convertMovingTime2Sec(moving_time);
+  let hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+  return (hours != 0 ? hours + "h" : "") + (minutes != 0 ? minutes + "min" : "") + (seconds != 0 ? seconds + "s" : "")
 };
 
 // for scroll to the map
