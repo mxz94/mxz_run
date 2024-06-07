@@ -12,6 +12,28 @@ const GridSvg = lazy(() => loadSvgComponent(totalStat, './grid.svg'));
 const { activities } = useActivities();
 
 let runs = activities;
+let run_speed =  0
+let max_run = runs[0]
+let ride_speed =  0
+let max_ride = runs[0]
+runs.forEach(item => {
+    if (item.type == "Run") {
+      if (item.average_speed > run_speed) {
+        run_speed = item.average_speed
+        max_run = item
+      }
+    } 
+    if (item.type == "Ride") {
+      if (item.average_speed > ride_speed) {
+        ride_speed = item.average_speed
+        max_ride = item
+      }
+    }
+})
+let new_runs = []
+new_runs.push(max_run)
+new_runs.push(max_ride)
+
 
 const SVGStat = () => (
   <div id="svgStat">
@@ -42,7 +64,7 @@ const SVGStat = () => (
           </tr>
         </thead>
         <tbody>
-          {runs.map((run) => (
+          {new_runs.map((run) => (
             <RunRow
               key={run.run_id}
               run={run}

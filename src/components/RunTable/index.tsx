@@ -95,7 +95,7 @@ const RunTable = ({
 
   return (
     <div className={styles.tableContainer}>
-      本年记录： <br/>骑行(时间：{max_ride.start_date_local.split(" ")[0]}， 时速：{kmh} 距离：{rrdistance}) <br/> 跑步(时间：{max_run.start_date_local.split(" ")[0]}, 配速：{rpaceParts}, 距离：{rdistance})
+      本年记录： <br/>骑行(时间：{max_ride.start_date_local.split(" ")[0]}, 时速：{kmh}, 距离：{rrdistance}) <br/> 跑步(时间：{max_run.start_date_local.split(" ")[0]}, 配速：{rpaceParts}, 距离：{rdistance})
       <table className={styles.runTable} cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
