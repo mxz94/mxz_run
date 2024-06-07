@@ -5,6 +5,7 @@ import {
   convertMovingTime2Sec,
   Activity,
   RunIds,
+  formatPace,
 } from '@/utils/utils';
 import RunRow from './RunRow';
 import styles from './style.module.css';
@@ -27,23 +28,29 @@ const RunTable = ({
   setRunIndex,
 }: IRunTableProperties) => {
   let run_speed =  0
-  let max_run_id = 1
+  let max_run = runs[0]
   let ride_speed =  0
-  let max_ride_id = 1
+  let max_ride = runs[0]
   runs.forEach(item => {
       if (item.type == "Run") {
         if (item.average_speed > run_speed) {
           run_speed = item.average_speed
-          max_run_id = item.run_id
+          max_run = item
         }
       } 
       if (item.type == "Ride") {
-        if (item.average_speed > run_speed) {
+        if (item.average_speed > ride_speed) {
           ride_speed = item.average_speed
-          max_ride_id = item.run_id
+          max_ride = item
         }
       }
   })
+  const rdistance = (max_run.distance / 1000.0).toFixed(2);
+  const rpaceParts = max_run.average_speed ? formatPace(max_run.average_speed) : null;
+
+  const rrdistance = (max_ride.distance / 1000.0).toFixed(2);
+  const kmh = (max_ride.distance * 3600.0 / convertMovingTime2Sec(max_ride.moving_time)/1000.0).toFixed(2) + "km/h";
+
   const [sortFuncInfo, setSortFuncInfo] = useState('');
   // TODO refactor?
   const sortTypeFunc: SortFunc = (a, b) =>
@@ -88,6 +95,7 @@ const RunTable = ({
 
   return (
     <div className={styles.tableContainer}>
+      本年记录： 骑行(时间：{max_ride.start_date_local.split(" ")[0]}， 时速：{kmh} 距离：{rrdistance})  跑步(时间：{max_run.start_date_local.split(" ")[0]}, 配速：{rpaceParts}, 距离：{rdistance})
       <table className={styles.runTable} cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
@@ -108,7 +116,7 @@ const RunTable = ({
               run={run}
               runIndex={runIndex}
               setRunIndex={setRunIndex}
-              maxRecord = {max_ride_id == run.run_id || max_run_id == run.run_id}
+              maxRecord = {max_run.run_id == run.run_id || max_ride.run_id == run.run_id}
             />
           ))}
         </tbody>
