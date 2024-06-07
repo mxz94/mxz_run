@@ -64,6 +64,7 @@ class Generator:
         for activity in self.client.get_activities(**filters):
             if self.only_run and activity.type != "Run":
                 continue
+            print(activity)    
             if IGNORE_BEFORE_SAVING:
                 activity.summary_polyline = filter_out(activity.summary_polyline)
             activity.source = "strava"

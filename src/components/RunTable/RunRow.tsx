@@ -1,4 +1,4 @@
-import { formatPace, colorFromType, formatRunTime, Activity, RunIds } from '@/utils/utils';
+import { formatPace, colorFromType, formatRunTime, Activity, RunIds, convertMovingTime2Sec } from '@/utils/utils';
 import styles from './style.module.css';
 
 interface IRunRowProperties {
@@ -13,6 +13,7 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IR
   const distance = (run.distance / 1000.0).toFixed(2);
   const paceParts = run.average_speed ? formatPace(run.average_speed) : null;
   const heartRate = run.average_heartrate;
+  const kmh = (run.distance * 3600.0 / convertMovingTime2Sec(run.moving_time)/1000.0).toFixed(2);
   const type = run.type;
   const runTime = formatRunTime(run.moving_time);
   const handleClick = () => {
@@ -36,6 +37,7 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex }: IR
       <td>{type}</td>
       <td>{distance}</td>
       <td>{paceParts}</td>
+      <td>{kmh}</td>
       {/* <td>{heartRate && heartRate.toFixed(0)}</td> */}
       <td>{runTime}</td>
       <td className={styles.runDate}>{run.start_date_local}</td>
