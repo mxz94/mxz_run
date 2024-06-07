@@ -46,7 +46,7 @@ const SVGStat = () => (
             <RunRow
               key={run.run_id}
               run={run}
-              runIndex=0
+              runIndex={0}
             />
           ))}
         </tbody>
