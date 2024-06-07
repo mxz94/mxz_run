@@ -3,7 +3,8 @@ import { totalStat } from '@assets/index';
 import { loadSvgComponent } from '@/utils/svgUtils';
 import useActivities from '@/hooks/useActivities';
 import RunRow from '../RunTable/RunRow';
-import styles from '../RunTable/style.module.css';
+import styles from './style.module.css';
+
 // Lazy load both github.svg and grid.svg
 const GithubSvg = lazy(() => loadSvgComponent(totalStat, './github.svg'));
 
