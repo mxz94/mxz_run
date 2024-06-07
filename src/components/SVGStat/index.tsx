@@ -19,6 +19,7 @@ const SVGStat = () => (
       <table className={styles.runTable} cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
+          <th />
               <th key="类型">
                 类型
               </th>
