@@ -129,12 +129,13 @@ const RunMap = ({
     opacity: 0.3,
   };
 // mapbox://styles/mapbox/streets-v12
+//  mapStyle="mapbox://styles/mapbox/dark-v10"
   return (
     <Map
       {...viewState}
       onMove={onMove}
       style={style}
-      mapStyle="mapbox://styles/mapbox/dark-v10"
+      mapStyle="mapbox://styles/mapbox/streets-v12"
       ref={mapRefCallback}
       mapboxAccessToken={MAPBOX_TOKEN}
     >
