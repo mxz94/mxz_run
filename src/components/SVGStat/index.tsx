@@ -42,7 +42,9 @@ const SVGStat = () => (
       <table className={styles.runTable} cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
-          <th />
+          <th key="历史最佳">
+          历史最佳
+          </th>》
               <th key="类型">
                 类型
               </th>
@@ -75,7 +77,7 @@ const SVGStat = () => (
       </table>
     </div>
       <GithubSvg className="mt-4 h-auto w-full" />
-      <GridSvg className="mt-4 h-auto w-full" />
+      {/* <GridSvg className="mt-4 h-auto w-full" /> */}
     </Suspense>
   </div>
 );
