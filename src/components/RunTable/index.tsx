@@ -26,6 +26,24 @@ const RunTable = ({
   runIndex,
   setRunIndex,
 }: IRunTableProperties) => {
+  let run_speed =  0
+  let max_run_id = 1
+  let ride_speed =  0
+  let max_ride_id = 1
+  runs.forEach(item => {
+      if (item.type == "Run") {
+        if (item.average_speed > run_speed) {
+          run_speed = item.average_speed
+          max_run_id = item.run_id
+        }
+      } 
+      if (item.type == "Ride") {
+        if (item.average_speed > run_speed) {
+          ride_speed = item.average_speed
+          max_ride_id = item.run_id
+        }
+      }
+  })
   const [sortFuncInfo, setSortFuncInfo] = useState('');
   // TODO refactor?
   const sortTypeFunc: SortFunc = (a, b) =>
@@ -90,6 +108,7 @@ const RunTable = ({
               run={run}
               runIndex={runIndex}
               setRunIndex={setRunIndex}
+              maxRecord = {max_ride_id == run.run_id || max_run_id == run.run_id}
             />
           ))}
         </tbody>

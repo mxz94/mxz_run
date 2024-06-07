@@ -53,3 +53,7 @@
 .runDate {
   color: rgb(204, 204, 204);
 }
+
+.maxRecord {
+  border: 1px solid red;
+}
