@@ -81,7 +81,13 @@ const formatRunTime = (moving_time: string): string => {
   seconds %= 3600;
   let minutes = Math.floor(seconds / 60);
   seconds %= 60;
-  return (hours != 0 ? hours + "h" : "") + (minutes != 0 ? minutes + "min" : "") + (seconds != 0 ? seconds + "s" : "")
+
+  // 添加零填充
+  let hourstr = hours.toString().padStart(2, '0');
+  let minutesstr = minutes.toString().padStart(2, '0');
+  let secondsstr = seconds.toString().padStart(2, '0');
+
+  return hourstr +":"+ minutesstr + ":" + secondsstr;
 };
 
 // for scroll to the map
