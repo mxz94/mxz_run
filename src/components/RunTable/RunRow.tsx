@@ -17,7 +17,7 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex, maxR
   const kmh = (run.distance * 3600.0 / convertMovingTime2Sec(run.moving_time)/1000.0).toFixed(2) + "km/h";
   const type = run.type;
   const runTime = formatRunTime(run.moving_time);
-  const handleClick = () => {
+  const handleClick = runIndex != 0 ? () => {
     if (runIndex === elementIndex) {
       setRunIndex(-1);
       locateActivity([]);
@@ -25,7 +25,7 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex, maxR
     };
     setRunIndex(elementIndex);
     locateActivity([run.run_id]);
-  };
+  } : () => {};
 
   return (
     <tr
