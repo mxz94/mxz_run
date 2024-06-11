@@ -13,14 +13,36 @@ const { activities } = useActivities();
 
 let runs = activities;
 let run_speed =  0
-let max_run = runs[0]
+let max_run;
+let run_10_speed =  0
+let max_run_10;
+let run_bm_speed =  0
+let max_run_bm;
+let run_qm_speed =  0
+let max_run_qm;
 let ride_speed =  0
-let max_ride = runs[0]
+let max_ride;
 runs.forEach(item => {
     if (item.type == "Run") {
-      if (item.average_speed > run_speed) {
+      if (item.average_speed > run_speed && item.distance >= 5000  &&  item.distance < 5500) {
         run_speed = item.average_speed
         max_run = item
+        max_run.name = "5km跑"
+      }
+      if (item.average_speed > run_10_speed && item.distance >= 10000  &&  item.distance < 10500) {
+        run_10_speed = item.average_speed
+        max_run_10 = item
+        max_run_10.name = "10km跑"
+      }
+      if (item.average_speed > run_bm_speed && item.distance >= 21097.5  &&  item.distance < 21597.5) {
+        run_bm_speed = item.average_speed
+        max_run_bm = item
+        max_run_bm.name = "半马跑"
+      }
+      if (item.average_speed > run_qm_speed && item.distance > 42195  &&  item.distance < 42695) {
+        run_qm_speed = item.average_speed
+        max_run_qm = item
+        max_run_qm.name = "全马跑"
       }
     } 
     if (item.type == "Ride") {
@@ -30,9 +52,12 @@ runs.forEach(item => {
       }
     }
 })
-let new_runs = []
-new_runs.push(max_run)
-new_runs.push(max_ride)
+let new_runs:any[] = []
+if (max_run) new_runs.push(max_run)
+if (max_run_10) new_runs.push(max_run_10)
+if (max_run_bm) new_runs.push(max_run_bm)
+if (max_run_qm) new_runs.push(max_run_qm)
+if (max_ride) new_runs.push(max_ride)
 
 
 const SVGStat = () => (
