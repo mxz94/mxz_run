@@ -4,6 +4,15 @@ import { loadSvgComponent } from '@/utils/svgUtils';
 import useActivities from '@/hooks/useActivities';
 import RunRow from '../RunTable/RunRow';
 import styles from './style.module.css';
+import { Activity, RunIds } from '@/utils/utils';
+
+interface IRunTableProperties {
+  locateActivity: (_runIds: RunIds) => void;
+  setActivity: (_runs: Activity[]) => void;
+  runIndex: number;
+  setRunIndex: (_index: number) => void;
+}
+
 
 // Lazy load both github.svg and grid.svg
 const GithubSvg = lazy(() => loadSvgComponent(totalStat, './github.svg'));
@@ -60,7 +69,11 @@ if (max_run_qm) new_runs.push(max_run_qm)
 if (max_ride) new_runs.push(max_ride)
 
 
-const SVGStat = () => (
+const SVGStat = ({locateActivity,
+  setActivity,
+  runIndex,
+  setRunIndex,
+}: IRunTableProperties) => (
   <div id="svgStat">
     <Suspense fallback={<div className="text-center">Loading...</div>}>
     <div className={styles.tableContainer}>
@@ -94,8 +107,10 @@ const SVGStat = () => (
           {new_runs.map((run) => (
             <RunRow
               key={run.run_id}
+              locateActivity={locateActivity}
               run={run}
-              runIndex={0}
+              runIndex={runIndex}
+              setRunIndex={setRunIndex}
             />
           ))}
         </tbody>

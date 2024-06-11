@@ -218,7 +218,11 @@ const Index = () => {
           thisYear={year}
         />
         {year === 'Total' ? (
-          <SVGStat />
+          <SVGStat locateActivity={locateActivity}
+          setActivity={setActivity}
+          runIndex={runIndex}
+          setRunIndex={setRunIndex}
+           />
         ) : (
           <RunTable
             runs={runs}
