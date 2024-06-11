@@ -44,7 +44,7 @@ const SVGStat = () => (
           <tr>
           <th key="历史最佳">
           历史最佳
-          </th>》
+          </th>
               <th key="类型">
                 类型
               </th>
