@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 import time
 
 import gpxpy as mod_gpxpy
@@ -34,6 +35,29 @@ def get_to_generate_files(last_time):
         if int(i[0].get_time_bounds()[0].timestamp()) > last_time
     }
     return sorted(list(gpx_files_dict.keys())), gpx_files_dict
+def move_files_to_subdirectory(target_folder, sub_directory):
+  """
+  将目标文件夹中的所有文件移动到其子目录中。
+
+  :param target_folder: 目标文件夹的路径
+  :param sub_directory: 子目录的名称
+  """
+  # 创建子目录，如果它不存在
+  sub_dir_path = os.path.join(target_folder, sub_directory)
+  if not os.path.exists(sub_dir_path):
+    os.makedirs(sub_dir_path)
+
+  # 遍历目标文件夹中的所有文件
+  for filename in os.listdir(target_folder):
+    # 检查是否为文件
+    file_path = os.path.join(target_folder, filename)
+    if os.path.isfile(file_path):
+      # 移动文件到子目录
+      new_file_path = os.path.join(sub_dir_path, filename)
+      shutil.move(file_path, new_file_path)
+      print(f"Moved {filename} to {sub_directory}")
+
+  print("All files have been moved to the subdirectory.")
 
 
 if __name__ == "__main__":
@@ -81,3 +105,5 @@ if __name__ == "__main__":
     run_strava_sync(
         options.client_id, options.client_secret, options.strava_refresh_token
     )
+
+    move_files_to_subdirectory(GPX_FOLDER, GPX_FOLDER + "/codoon")
