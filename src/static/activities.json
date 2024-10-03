@@ -2638,5 +2638,20 @@
 "average_speed": 3.902,
 "source": "strava",
 "streak": 1
+},
+{
+"run_id": 12561802250,
+"name": "Lunch Ride",
+"distance": 9666.3,
+"moving_time": "0:35:51",
+"type": "Ride",
+"start_date": "2024-10-03 03:35:35+00:00",
+"start_date_local": "2024-10-03 11:35:35",
+"location_country": "\u79d1\u6280\u5927\u9053, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "wadrEittmTBbAAb@KdAk@pCKlA?lATnDAXEVKRSNUJs@NsDBMGCG_Ay@yA{@_Bu@_Cu@_Ce@_BWaAIgCK}Fy@_AQyCw@}Be@]M_Aa@{BuAaB}@{CoAi@[_BkAU[M_@Ie@_@sD?_@Da@TaAN_@PYRKRHN\\Hh@f@~Ff@dEt@`Kr@vKdAdMh@rHHdBR|G\\vFBjB?hBQnIEp@Gl@[|ASrAWnD]nDC`A@t@NnBXjBXdAfE|Lp@`Ch@zBjB|J`AxFLhAhAbGxArIl@bDdAzGn@zCbBlJf@fDVnBb@tCBb@Ab@G\\MRUJYBoDOqA?qBFoE`@qCJkBLwDA_AF}@LcBJaINc@?IACC{@B_ATF@CH@@?^P~CDjDp@fID|CIlEBbAZhEEKZHIDBBCNEAFb@@b@F~CI~CGl@CLFd@Fx@HzEAjAKhA?BBEFfAZnC?hBJzDPtD?lC^bFBbBA|@KxAILS?cAOeFLgBJq@?_@CF?kBP{EZgDDgBJk@@WASGIOASHeFAiAMiAQ_AKWMQUIWC[@wATwAJ}@E_@FS@_BOg@AB@MBAKBMSa@DKEC",
+"average_heartrate": null,
+"average_speed": 4.494,
+"source": "strava",
+"streak": 1
 }
 ]
