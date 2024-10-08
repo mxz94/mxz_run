@@ -34,7 +34,12 @@ def get_to_generate_files(last_time):
         for i in gpx_files
         if int(i[0].get_time_bounds()[0].timestamp()) > last_time
     }
-    return sorted(list(gpx_files_dict.keys())), gpx_files_dict
+    gpx_tracks_dict = {
+      int(i[0].get_time_bounds()[0].timestamp()): i[0]
+      for i in gpx_files
+      if int(i[0].get_time_bounds()[0].timestamp()) > last_time
+    }
+    return sorted(list(gpx_files_dict.keys())), gpx_files_dict, gpx_tracks_dict
 def move_files_to_subdirectory(target_folder, sub_directory):
   """
   将目标文件夹中的所有文件移动到其子目录中。
@@ -82,19 +87,21 @@ if __name__ == "__main__":
     )
     if not options.all:
         last_time = get_strava_last_time(client, is_milliseconds=False)
-    to_upload_time_list, to_upload_dict = get_to_generate_files(last_time)
+    to_upload_time_list,  to_upload_dict, gpx_tracks_dict = get_to_generate_files(last_time)
     index = 1
     print(f"{len(to_upload_time_list)} gpx files is going to upload")
     for i in to_upload_time_list:
         gpx_file = to_upload_dict.get(i)
+        gpx_track = gpx_tracks_dict.get(i)
+        aname = gpx_track.tracks[0].name
         try:
-            upload_file_to_strava(client, gpx_file, "gpx", False)
+            upload_file_to_strava(client, gpx_file, "gpx", False, aname)
         except RateLimitTimeout as e:
             timeout = e.timeout
             print(f"Strava API Rate Limit Timeout. Retry in {timeout} seconds\n")
             time.sleep(timeout)
             # try previous again
-            upload_file_to_strava(client, gpx_file, "gpx", False)
+            upload_file_to_strava(client, gpx_file, "gpx", False, aname)
 
         except ActivityUploadFailed as e:
             print(f"Upload faild error {str(e)}")

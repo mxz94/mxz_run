@@ -100,15 +100,15 @@ def get_strava_last_time(client, is_milliseconds=True):
         return 0
 
 
-def upload_file_to_strava(client, file_name, data_type, force_to_run=True):
+def upload_file_to_strava(client, file_name, data_type, force_to_run=True, aname=None):
     with open(file_name, "rb") as f:
         try:
             if force_to_run:
                 r = client.upload_activity(
-                    activity_file=f, data_type=data_type, activity_type="run"
+                    activity_file=f, data_type=data_type, activity_type="run", name=aname
                 )
             else:
-                r = client.upload_activity(activity_file=f, data_type=data_type)
+                r = client.upload_activity(activity_file=f, data_type=data_type, name=aname)
 
         except RateLimitExceeded as e:
             timeout = e.timeout
@@ -118,10 +118,10 @@ def upload_file_to_strava(client, file_name, data_type, force_to_run=True):
             time.sleep(timeout)
             if force_to_run:
                 r = client.upload_activity(
-                    activity_file=f, data_type=data_type, activity_type="run"
+                    activity_file=f, data_type=data_type, activity_type="run", name=aname
                 )
             else:
-                r = client.upload_activity(activity_file=f, data_type=data_type)
+                r = client.upload_activity(activity_file=f, data_type=data_type, name=aname)
         print(
             f"Uploading {data_type} file: {file_name} to strava, upload_id: {r.upload_id}."
         )
