@@ -187,23 +187,33 @@ class CodoonAuth:
 
 def get_time_period(now):
   """
-  根据当前时间判断是早上、中午、下午还是晚上。
+  根据当前时间判断是凌晨、早上、上午、中午、下午、傍晚、晚上或深夜。
+
+  参数:
+      now (datetime): 当前时间
 
   返回值:
-      str: "早上"、"中午"、"下午" 或 "晚上"
+      str: "凌晨"、"早上"、"上午"、"中午"、"下午"、"傍晚"、"晚上" 或 "深夜"
   """
-  # 获取当前时间
   current_hour = now.hour
 
   # 判断时间段
-  if 6 <= current_hour < 12:
+  if 0 <= current_hour < 6:
+    return "凌晨"
+  elif 6 <= current_hour < 9:
     return "早上"
+  elif 9 <= current_hour < 12:
+    return "上午"
   elif 12 <= current_hour < 14:
     return "中午"
   elif 14 <= current_hour < 18:
     return "下午"
-  else:
+  elif 18 <= current_hour < 20:
+    return "傍晚"
+  elif 20 <= current_hour < 24:
     return "晚上"
+  else:
+    return "深夜"  # 深夜一般属于凌晨时段
 
 class Codoon:
   def __init__(self, mobile="", password="", refresh_token=None, user_id=""):
