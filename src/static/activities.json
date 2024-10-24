@@ -2641,7 +2641,7 @@
 },
 {
 "run_id": 12561802250,
-"name": "Lunch Ride",
+"name": "\u5348\u95f4\u9a91\u884c",
 "distance": 9666.3,
 "moving_time": "0:35:51",
 "type": "Ride",
@@ -2656,7 +2656,7 @@
 },
 {
 "run_id": 12563646193,
-"name": "Evening Ride",
+"name": "\u665a\u95f4\u9a91\u884c",
 "distance": 4258.4,
 "moving_time": "0:12:30",
 "type": "Ride",
@@ -2671,7 +2671,7 @@
 },
 {
 "run_id": 12571099030,
-"name": "Afternoon Ride",
+"name": "\u5348\u95f4\u9a91\u884c",
 "distance": 20026.9,
 "moving_time": "0:47:18",
 "type": "Ride",
@@ -2686,7 +2686,7 @@
 },
 {
 "run_id": 12580304801,
-"name": "Evening Run",
+"name": "\u665a\u4e0a\u8dd1\u6b65",
 "distance": 2046.8,
 "moving_time": "0:11:31",
 "type": "Run",
@@ -2701,7 +2701,7 @@
 },
 {
 "run_id": 12594142687,
-"name": "Evening Ride",
+"name": "\u665a\u95f4\u9a91\u884c",
 "distance": 6614.6,
 "moving_time": "0:17:29",
 "type": "Ride",
@@ -2716,7 +2716,7 @@
 },
 {
 "run_id": 12594142739,
-"name": "Evening Run",
+"name": "\u665a\u4e0a\u8dd1\u6b65",
 "distance": 5400.7,
 "moving_time": "0:29:14",
 "type": "Run",
@@ -2758,5 +2758,20 @@
 "average_speed": 1.324,
 "source": "strava",
 "streak": 1
+},
+{
+"run_id": 12730359833,
+"name": "\u65e9\u4e0a\u9a91\u884c",
+"distance": 5761.9,
+"moving_time": "0:14:48",
+"type": "Ride",
+"start_date": "2024-10-24 00:43:04+00:00",
+"start_date_local": "2024-10-24 08:43:04",
+"location_country": "\u79d1\u6280\u5927\u9053, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "{bdrEgcumTdAz@T\\?f@q@jCKn@Gj@Cx@JvCAx@Gh@]|AKt@Cj@?t@JrDAd@Sd@YVc@X]La@Hq@B_A?UCMEk@k@g@_@u@c@m@YeCaAuBk@wB_@qE]mFm@uBc@wCo@oBi@eBs@eKkFgBk@i@YQ[Im@Ck@CgB@cBT{@V_@ZEv@vCDZT~CXtGh@pGZ~BDn@T~Fh@pHx@lJJ|AB|AStDP~FCb@QXUDe@GwH{Cy@a@oBmAy@a@u@SUC[@u@Lq@\\uDdCmBjAkBlAoAp@o@Vo@Pu@JkKTsDRmEL{DFuG\\oD@sBJ]B[Ng@r@{@ZiANwCLiCXw@BmCDY@YFUNQRRlD@v@CZOM",
+"average_heartrate": null,
+"average_speed": 6.489,
+"source": "strava",
+"streak": 2
 }
 ]
