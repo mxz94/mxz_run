@@ -2863,5 +2863,35 @@
 "average_speed": 1.479,
 "source": "strava",
 "streak": 1
+},
+{
+"run_id": 13055925297,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 666.0,
+"moving_time": "0:03:51",
+"type": "Run",
+"start_date": "2024-12-05 12:00:56+00:00",
+"start_date_local": "2024-12-05 20:00:56",
+"location_country": "\u79d1\u6280\u5927\u9053, \u897f\u9a6c\u793e\u533a, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "gfdrEwfumTlBzBtAdAJLDL?PCNs@|BUdALcAx@mCFe@SEc@Yk@e@gAiAe@o@y@aAqAgC",
+"average_heartrate": null,
+"average_speed": 2.883,
+"source": "strava",
+"streak": 1
+},
+{
+"run_id": 13055925412,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 4998.1,
+"moving_time": "0:27:23",
+"type": "Run",
+"start_date": "2024-12-05 12:05:55+00:00",
+"start_date_local": "2024-12-05 20:05:55",
+"location_country": "\u79d1\u6280\u5927\u9053, \u897f\u9a6c\u793e\u533a, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "_ldrEsoumTmA{Da@eCUeBUyBKaECe@Ka@IKMIcB]a@Mq@[cB_Ao@k@oBqBkB}CUY{BqBq@e@gBw@oA_@q@M}AQmCGuA@kCRcALaDr@aANaIzBGn@@b@h@vCVtBDb@h@tCPhBKo@Us@Ig@AIHNLf@`@xBXpBv@zGR~@\\xBH~@TjADj@Oi@i@_Cu@gFSyB_@yBQeB[eBi@oEm@iD[}BCa@BQDM^ObB]t@S^GnCw@hGkAtDUj@?vCHrALz@Nj@NbBr@jAp@vAhAr@r@\\d@f@z@n@bA|@fAn@n@`At@fBjAZLlCv@ZPHHFZ?~@N~Dr@fFZxAh@hB`@fAl@rAtAfC",
+"average_heartrate": null,
+"average_speed": 3.042,
+"source": "strava",
+"streak": 1
 }
 ]
