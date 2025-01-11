@@ -104,6 +104,15 @@ jobs:
         with:
           # Upload dist repository
           path: './dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v3
+      - name: Deploy to Server
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./dist/*"  # 假设构建后的文件在 dist 文件夹
+          target: "/www/wwwroot/malanxi/r"  # 替换为服务器上的路径
+        
