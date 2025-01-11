@@ -70,40 +70,25 @@ jobs:
             ${{ inputs.data_cache_prefix }}-${{ github.sha }}-
             ${{ inputs.data_cache_prefix }}-
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '20'  # 使用 Node.js 版本，按需修改
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
+      - name: Cache node modules
+        uses: actions/cache@v3
         with:
-          version: 8
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules  # 缓存路径
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}  # 缓存键基于 package-lock.json
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install
-      - name: Build
-        run: PATH_PREFIX=/${{ github.event.repository.name }} pnpm build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload dist repository
-          path: './dist'
+            ${{ runner.os }}-node-
+            
+      - name: Install Node.js dependencies
+        run: npm install  # 安装 Node.js 依赖
+        
+      - name: Build project with Node.js
+        run: npm run build  # 编译项目，通常会生成到 dist 文件夹
+        
       # - name: Deploy to GitHub Pages
       #   id: deployment
       #   uses: actions/deploy-pages@v3
