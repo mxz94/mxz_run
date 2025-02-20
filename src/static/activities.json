@@ -3163,5 +3163,35 @@
 "average_speed": 6.202,
 "source": "strava",
 "streak": 1
+},
+{
+"run_id": 13675354305,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 512.8,
+"moving_time": "0:04:15",
+"type": "Run",
+"start_date": "2025-02-19 12:10:27+00:00",
+"start_date_local": "2025-02-19 20:10:27",
+"location_country": "\u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "obhrEg{vmTCPEABSECYHEJBZf@|ADRLENQ@c@BELIFO?OEMWg@MMEBIRCAMIG?QBGDCLFZTt@Tj@FDZQ@WBGVU@GMk@Qg@CEK@UXE?BBRIBFBA@DCFACBEAA@@",
+"average_heartrate": null,
+"average_speed": 2.011,
+"source": "strava",
+"streak": 1
+},
+{
+"run_id": 13675354694,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 399.2,
+"moving_time": "0:02:09",
+"type": "Run",
+"start_date": "2025-02-19 12:37:51+00:00",
+"start_date_local": "2025-02-19 20:37:51",
+"location_country": "\u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "eahrEq}vmTSu@k@gDSm@k@gASq@Nd@p@jAFP@PDz@PbBCJURIL?R@J",
+"average_heartrate": null,
+"average_speed": 3.094,
+"source": "strava",
+"streak": 1
 }
 ]
