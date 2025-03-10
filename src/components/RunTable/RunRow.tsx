@@ -40,8 +40,16 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex, maxR
       <td>{paceParts}</td>
       <td>{kmh}</td>
       {/* <td>{heartRate && heartRate.toFixed(0)}</td> */}
-      <td>{runTime}</td>
-      <td className={styles.runDate}>{run.start_date_local}</td>
+      <td>
+        <a href={run.relive_url} target="_blank" rel="noopener noreferrer">
+          {runTime}
+        </a>
+      </td>
+      <td className={styles.runDate}>
+        <a href={run.video_url} target="_blank" rel="noopener noreferrer">
+          {run.start_date_local}
+        </a>
+      </td>
     </tr>
   );
 };

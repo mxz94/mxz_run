@@ -37,6 +37,8 @@ ACTIVITY_KEYS = [
     "average_heartrate",
     "average_speed",
     "source",
+    "relive_url",
+    "video_url",
 ]
 
 
@@ -57,6 +59,8 @@ class Activity(Base):
     average_speed = Column(Float)
     streak = None
     source = Column(String)
+    relive_url = Column(String)
+    video_url = Column(String)
 
     def to_dict(self):
         out = {}

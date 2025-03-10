@@ -40,6 +40,8 @@ export interface Activity {
   average_heartrate?: number | null;
   average_speed: number;
   streak: number;
+  relive_url: string;
+  video_url: string;
 }
 
 const titleForShow = (run: Activity): string => {
