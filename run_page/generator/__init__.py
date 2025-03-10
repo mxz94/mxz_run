@@ -28,6 +28,10 @@ class Generator:
         self.refresh_token = ""
         self.only_run = False
 
+    def update(self, sql):
+        self.session.execute(sql)
+        self.session.commit()
+
     def set_strava_config(self, client_id, client_secret, refresh_token):
         self.client_id = client_id
         self.client_secret = client_secret

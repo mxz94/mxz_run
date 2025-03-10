@@ -156,8 +156,8 @@ if __name__ == "__main__":
         print(err)
 
     # Run the strava sync
-    run_strava_sync(
-        options.strava_client_id,
-        options.strava_client_secret,
-        options.strava_refresh_token,
-    )
+    # run_strava_sync(
+    #     options.strava_client_id,
+    #     options.strava_client_secret,
+    #     options.strava_refresh_token,
+    # )
