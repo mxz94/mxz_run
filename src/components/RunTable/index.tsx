@@ -82,6 +82,7 @@ const RunTable = ({
     ['时速', sortPaceFunc],
     ['时长', sortRunTimeFunc],
     ['日期', sortDateFuncClick],
+    ['视频', ],
   ]);
 
   const handleClick: React.MouseEventHandler<HTMLElement> = (e) => {

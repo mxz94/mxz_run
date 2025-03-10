@@ -40,15 +40,62 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex, maxR
       <td>{paceParts}</td>
       <td>{kmh}</td>
       {/* <td>{heartRate && heartRate.toFixed(0)}</td> */}
-      <td>
-        <a href={run.relive_url} target="_blank" rel="noopener noreferrer">
-          {runTime}
-        </a>
-      </td>
+      <td>{runTime}</td>
       <td className={styles.runDate}>
-        <a href={run.video_url} target="_blank" rel="noopener noreferrer">
+        <a href={run.relive_url} target="_blank" rel="noopener noreferrer">
           {run.start_date_local}
         </a>
+      </td>
+      <td>
+        <button onClick={() => {
+          const videoUrl = run.video_url;
+          const modal = document.createElement('div');
+          modal.innerHTML = `
+            <style>
+              .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999; /* 添加此行以确保模态框悬浮在最上面 */
+              }
+              .modal-content {
+                width: 60%;
+                height: 60%;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                overflow: hidden; /* 添加此行以隐藏白边 */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加此行以隐藏白边 */
+                border: none; /* 添加此行以隐藏白边 */
+              }
+              .close-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 24px;
+                cursor: pointer;
+              }
+            </style>
+            <div class="modal">
+              <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <iframe src="${videoUrl}" frameborder="0" width="100%" height="100%" allowfullscreen></iframe> <!-- 添加allowfullscreen以支持全屏播放 -->
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          modal.querySelector('.modal')?.addEventListener('click', (e) => {
+            if ((e.target as HTMLElement).classList.contains('modal') || (e.target as HTMLElement).classList.contains('close-btn')) {
+              document.body.removeChild(modal);
+            }
+          });
+        }}>relive</button>
       </td>
     </tr>
   );
