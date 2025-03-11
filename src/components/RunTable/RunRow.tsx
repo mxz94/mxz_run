@@ -69,7 +69,6 @@ const RunRow = ({ elementIndex, locateActivity, run, runIndex, setRunIndex, maxR
                 height: 60%;
                 background-color: #fff;
                 border-radius: 10px;
-                padding: 20px;
                 overflow: hidden; /* 添加此行以隐藏白边 */
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加此行以隐藏白边 */
                 border: none; /* 添加此行以隐藏白边 */
