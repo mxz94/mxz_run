@@ -7,7 +7,7 @@ from generator import Generator
 import json
 
 token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Iml3cTVtSmZaaS1wLTM4QkstWE5rei1HZG1LayJ9.eyJhdWQiOiJhMjc0YjNjMy04ZTIxLTQxM2ItYTNhNy1jY2NkZDI1MTQxYzQiLCJleHAiOjE3NDE2Nzc3NDksImlhdCI6MTc0MTU5MTM0OSwiaXNzIjoicmVsaXZlLmNjIiwic3ViIjoiODgwZTdlOWItYWU5Ni00NWFmLWJlZjYtZmVlMzg1YmY2ZTAwIiwianRpIjoiMzBhYzYwMTAtYzNmMy00ODMzLWFkMjAtMDUwMTI3MzIzNTQwIiwiYXV0aGVudGljYXRpb25UeXBlIjoiUkVGUkVTSF9UT0tFTiIsImVtYWlsIjoiODM2MzIzNDkzQHFxLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJyZWxpdmUyMjg1NTAiLCJhcHBsaWNhdGlvbklkIjoiYTI3NGIzYzMtOGUyMS00MTNiLWEzYTctY2NjZGQyNTE0MWM0IiwidGlkIjoiODM4Njk0MjQtYWVhNS00Yzk5LWE3OTctZjEyNmFkZTYzNWNhIiwicm9sZXMiOltdLCJhdXRoX3RpbWUiOjE3NDE1ODg4NzIsInNpZCI6ImNiNzM0NTVlLWY1NjMtNDQ2OC05MWE1LWY0NWUwOWQyZWUwNyIsInVzZXJfaWQiOjIwMDA5ODg0fQ.imgqvoh6u4rseVVrAO1Ij_PMryAVa3QtGFFgDaVzxiae4ZnxwTZBmeyPNrKo-qa13U3L4UzUdvIfyd1yJsLn16CyoQ_nFc1MjKhnlC1YEnJmkJgH5jyQsj9xR98Qu8sNwfruNWjx2BRow4Z0wEgOyjjaOdy1GuNMRB_iv5bWdabRfTB22gsSyysKirBlGTqDF4JFihCMRfrz1P3CRGVbhG4yvHaXh0-O0uOgXb1IHoGISmjNFsbV-wJDbGFvJ3j2Qxqwq8GXLz3tloyI3j654v7xhFI5RSDnMos3KAqi6t9gxbCm44pRtDHwEZV9sH-BBquI8d4CDwBM5fevklWHpg'
-headers = {
+HEADERS = {
     'Host': 'mobile.api.relive.cc',
     'User-Agent': 'Relive/12266 CFNetwork/1492.0.1 Darwin/23.3.0',
     'x-reliveapp-language': 'zh-TW',
@@ -90,7 +90,7 @@ def refresh_token():
     response = requests.post('https://auth.relive.cc/api/jwt/refresh', headers=headers, json=json_data)
     print("refresh relive token")
     if response.json()['token']:
-        headers["Authorization"] = 'Bearer ' + response.json()['token']
+        HEADERS["Authorization"] = 'Bearer ' + response.json()['token']
     return response.json()
 
 def generate_data(id):
@@ -120,14 +120,14 @@ def generate_data(id):
         },
         'edit_source': 'create-basic-video',
     }
-    response = requests.post(f'https://mobile.api.relive.cc/api/1/activity/{id}?', headers=headers, json=json_data)
+    response = requests.post(f'https://mobile.api.relive.cc/api/1/activity/{id}?', headers=HEADERS, json=json_data)
     print(response.json())
 
 def activity_list():
     params = {
         'limit': '500',
     }
-    response = requests.get('https://mobile.api.relive.cc/api/1/feed/me/updated', params=params, headers=headers)
+    response = requests.get('https://mobile.api.relive.cc/api/1/feed/me/updated', params=params, headers=HEADERS)
     data = response.json()["updated_activities"]
     return data
 
