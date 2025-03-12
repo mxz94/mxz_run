@@ -7,6 +7,29 @@ from generator import Generator
 import json
 
 token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Iml3cTVtSmZaaS1wLTM4QkstWE5rei1HZG1LayJ9.eyJhdWQiOiJhMjc0YjNjMy04ZTIxLTQxM2ItYTNhNy1jY2NkZDI1MTQxYzQiLCJleHAiOjE3NDE2Nzc3NDksImlhdCI6MTc0MTU5MTM0OSwiaXNzIjoicmVsaXZlLmNjIiwic3ViIjoiODgwZTdlOWItYWU5Ni00NWFmLWJlZjYtZmVlMzg1YmY2ZTAwIiwianRpIjoiMzBhYzYwMTAtYzNmMy00ODMzLWFkMjAtMDUwMTI3MzIzNTQwIiwiYXV0aGVudGljYXRpb25UeXBlIjoiUkVGUkVTSF9UT0tFTiIsImVtYWlsIjoiODM2MzIzNDkzQHFxLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJyZWxpdmUyMjg1NTAiLCJhcHBsaWNhdGlvbklkIjoiYTI3NGIzYzMtOGUyMS00MTNiLWEzYTctY2NjZGQyNTE0MWM0IiwidGlkIjoiODM4Njk0MjQtYWVhNS00Yzk5LWE3OTctZjEyNmFkZTYzNWNhIiwicm9sZXMiOltdLCJhdXRoX3RpbWUiOjE3NDE1ODg4NzIsInNpZCI6ImNiNzM0NTVlLWY1NjMtNDQ2OC05MWE1LWY0NWUwOWQyZWUwNyIsInVzZXJfaWQiOjIwMDA5ODg0fQ.imgqvoh6u4rseVVrAO1Ij_PMryAVa3QtGFFgDaVzxiae4ZnxwTZBmeyPNrKo-qa13U3L4UzUdvIfyd1yJsLn16CyoQ_nFc1MjKhnlC1YEnJmkJgH5jyQsj9xR98Qu8sNwfruNWjx2BRow4Z0wEgOyjjaOdy1GuNMRB_iv5bWdabRfTB22gsSyysKirBlGTqDF4JFihCMRfrz1P3CRGVbhG4yvHaXh0-O0uOgXb1IHoGISmjNFsbV-wJDbGFvJ3j2Qxqwq8GXLz3tloyI3j654v7xhFI5RSDnMos3KAqi6t9gxbCm44pRtDHwEZV9sH-BBquI8d4CDwBM5fevklWHpg'
+headers = {
+    'Host': 'mobile.api.relive.cc',
+    'User-Agent': 'Relive/12266 CFNetwork/1492.0.1 Darwin/23.3.0',
+    'x-reliveapp-language': 'zh-TW',
+    'x-device-info': 'Apple/Apple/iPhone 14 Plus/iPhone14,8',
+    'x-reliveapp-request-mac': '8a32f89a',
+    'x-datadog-trace-id': '6642824766071233509',
+    'x-requested-with': 'ReliveApp/5.57.0/ios/17.3',
+    'x-datadog-origin': 'rum',
+    'baggage': 'sentry-environment=production,sentry-public_key=8495c51998f2459298164fddc54ac7a7,sentry-trace_id=799636d7d70644e29eb230da45bec2ac',
+    'x-device-country': 'CN',
+    'Connection': 'keep-alive',
+    'x-reliveapp-request-nonce': '1741571773780',
+    'x-datadog-sampling-priority': '0',
+    'Authorization': 'Bearer '+token,
+    'tracestate': 'dd=s:0;o:rum;p:90ed6ef39e8c782a',
+    'Accept-Language': 'zh-TW',
+    'x-datadog-tags': '_dd.p.tid=67ce46bd00000000',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'sentry-trace': '799636d7d70644e29eb230da45bec2ac-b8d6eb23853e7fa5',
+    'traceparent': '00-67ce46bd000000005c300dedf6d7dbe5-90ed6ef39e8c782a-00',
+}
 def login():
     headers = {
         'Host': 'auth.relive.cc',
@@ -70,29 +93,6 @@ def refresh_token():
         headers["Authorization"] = 'Bearer ' + response.json()['token']
     return response.json()
 
-headers = {
-    'Host': 'mobile.api.relive.cc',
-    'User-Agent': 'Relive/12266 CFNetwork/1492.0.1 Darwin/23.3.0',
-    'x-reliveapp-language': 'zh-TW',
-    'x-device-info': 'Apple/Apple/iPhone 14 Plus/iPhone14,8',
-    'x-reliveapp-request-mac': '8a32f89a',
-    'x-datadog-trace-id': '6642824766071233509',
-    'x-requested-with': 'ReliveApp/5.57.0/ios/17.3',
-    'x-datadog-origin': 'rum',
-    'baggage': 'sentry-environment=production,sentry-public_key=8495c51998f2459298164fddc54ac7a7,sentry-trace_id=799636d7d70644e29eb230da45bec2ac',
-    'x-device-country': 'CN',
-    'Connection': 'keep-alive',
-    'x-reliveapp-request-nonce': '1741571773780',
-    'x-datadog-sampling-priority': '0',
-    'Authorization': 'Bearer '+token,
-    'tracestate': 'dd=s:0;o:rum;p:90ed6ef39e8c782a',
-    'Accept-Language': 'zh-TW',
-    'x-datadog-tags': '_dd.p.tid=67ce46bd00000000',
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    'sentry-trace': '799636d7d70644e29eb230da45bec2ac-b8d6eb23853e7fa5',
-    'traceparent': '00-67ce46bd000000005c300dedf6d7dbe5-90ed6ef39e8c782a-00',
-}
 def generate_data(id):
     json_data = {
         'activity': {
