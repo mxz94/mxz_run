@@ -66,6 +66,8 @@ def refresh_token():
 
     response = requests.post('https://auth.relive.cc/api/jwt/refresh', headers=headers, json=json_data)
     print("refresh relive token")
+    if response.json()['token']:
+        headers["Authorization"] = 'Bearer ' + response.json()['token']
     return response.json()
 
 headers = {
