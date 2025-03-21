@@ -48,7 +48,7 @@ def make_gpx_from_points(title, points_dict_list):
     gpx.nsmap["gpxtpx"] = "http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
     gpx_track = gpxpy.gpx.GPXTrack()
     gpx_track.name = title
-    gpx_track.type = "Run"
+    gpx_track.type = "running"
     gpx.tracks.append(gpx_track)
 
     # Create first segment in our GPX track:
