@@ -137,11 +137,12 @@ if __name__ == '__main__':
     data = activity_list()
     #  生成
     data = sorted(data, key=lambda x: x["id"], reverse=True)
+    print(data[0])
     upList = []
     for item in data:
         video_url = item["video_url"]
         if not video_url:
-            print("generate video ")
+            print("generate video " + str(item["id"]))
             generate_data(item["id"])
             upList.append(item["id"])
             time.sleep(180)
@@ -163,4 +164,4 @@ if __name__ == '__main__':
 
         activities_list = generator.loadForMapping()
         with open(JSON_FILE, "w") as f:
-            json.dump(activities_list, f, indent=0)    
+            json.dump(activities_list, f, indent=0)
