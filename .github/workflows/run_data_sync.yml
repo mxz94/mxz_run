@@ -3,7 +3,7 @@ name: Run Data Sync
 on:
   workflow_dispatch:
   schedule:
-    - cron: '25 0 * * *'
+    - cron: '25 4 * * *'
   push:
     branches:
       - master
