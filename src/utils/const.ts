@@ -63,6 +63,8 @@ const HALF_MARATHON_RUN_TITLE = IS_CHINESE ? '半程马拉松' : 'Half Marathon'
 const RUN_TITLE = IS_CHINESE ? '跑步' : 'Run';
 const TRAIL_RUN_TITLE = IS_CHINESE ? '越野跑' : 'Trail Run';
 const SWIM_TITLE = IS_CHINESE ? '游泳' : 'Swim';
+const CYCLING_TITLE = IS_CHINESE ? '骑行' : 'Cycling';
+const RUN_GENERIC_TITLE = IS_CHINESE ? '跑步' : 'Run';
 
 const RIDE_TITLE = IS_CHINESE ? '骑行' : 'Ride';
 const INDOOR_RIDE_TITLE = IS_CHINESE ? '室内骑行' : 'Indoor Ride';
