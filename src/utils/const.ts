@@ -74,6 +74,17 @@ const SNOWBOARD_TITLE = IS_CHINESE ? '单板滑雪' : 'Snowboard';
 const SKI_TITLE = IS_CHINESE ? '双板滑雪' : 'Ski';
 const ROAD_TRIP_TITLE = IS_CHINESE ? '自驾' : 'RoadTrip';
 const FLIGHT_TITLE = IS_CHINESE ? '飞行' : 'Flight';
+const ACTIVITY_COUNT_TITLE = IS_CHINESE ? '活动次数' : 'Activity Count';
+const MAX_DISTANCE_TITLE = IS_CHINESE ? '最远距离' : 'Max Distance';
+const MAX_SPEED_TITLE = IS_CHINESE ? '最快速度' : 'Max Speed';
+const TOTAL_TIME_TITLE = IS_CHINESE ? '总时间' : 'Total Time';
+const AVERAGE_SPEED_TITLE = IS_CHINESE ? '平均速度' : 'Average Speed';
+const TOTAL_DISTANCE_TITLE = IS_CHINESE ? '总距离' : 'Total Distance';
+const YEARLY_TITLE = IS_CHINESE ? '按年' : 'Yearly';
+const MONTHLY_TITLE = IS_CHINESE ? '按月' : 'Monthly';
+const WEEKLY_TITLE = IS_CHINESE ? '按周' : 'Weekly';
+const DAILY_TITLE = IS_CHINESE ? '按天' : 'Daily';
+const LOCATION_TITLE = IS_CHINESE ? '位置' : 'Location';
 
 const RUN_TITLES = {
   FULL_MARATHON_RUN_TITLE,
