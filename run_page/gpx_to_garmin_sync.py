@@ -9,7 +9,7 @@ from stravalib.exc import ActivityUploadFailed, RateLimitTimeout
 from stravaweblib import DataFormat
 
 from config import GPX_FOLDER
-from run_page.garmin_sync import Garmin
+from garmin_sync import Garmin
 
 
 def get_to_generate_files(last_time):
