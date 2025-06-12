@@ -140,7 +140,7 @@ if __name__ == '__main__':
     print(data[0])
     upList = []
     for item in data:
-        video_url = item["video_url"]
+        video_url = item["site_url"]
         if not video_url:
             print("generate video " + str(item["id"]))
             generate_data(item["id"])
