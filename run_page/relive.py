@@ -141,7 +141,8 @@ if __name__ == '__main__':
     upList = []
     for item in data:
         video_url = item["video_url"]
-        if not video_url:
+        created_at = item["start_date_local"][:16].replace('T', ' ')
+        if not video_url and created_at > "2025-05":
             print("generate video " + str(item["id"]))
             generate_data(item["id"])
             upList.append(item["id"])
