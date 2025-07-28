@@ -8,7 +8,7 @@ import gpxpy as mod_gpxpy
 from stravalib.exc import ActivityUploadFailed, RateLimitTimeout
 from stravaweblib import DataFormat
 
-from config import GPX_FOLDER
+from config import GPX_FOLDER, KEEP_GPX_FOLDER
 from garmin_sync import Garmin
 
 
@@ -17,11 +17,11 @@ def get_to_generate_files(last_time):
   reuturn to values one dict for upload
   and one sorted list for next time upload
   """
-  file_names = os.listdir(GPX_FOLDER+ "/codoon")
+  file_names = os.listdir(KEEP_GPX_FOLDER)
   gpx_files = []
   for f in file_names:
     if f.endswith(".gpx"):
-      file_path = os.path.join(GPX_FOLDER+ "/codoon", f)
+      file_path = os.path.join(KEEP_GPX_FOLDER, f)
       with open(file_path, "rb") as r:
         try:
           gpx = mod_gpxpy.parse(r)

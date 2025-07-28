@@ -5,13 +5,13 @@ import os
 import time
 import zlib
 from collections import namedtuple
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import eviltransform
 import gpxpy
 import polyline
 import requests
-from config import GPX_FOLDER, JSON_FILE, SQL_FILE, run_map, start_point
+from config import KEEP_GPX_FOLDER, JSON_FILE, SQL_FILE, run_map, start_point
 from Crypto.Cipher import AES
 from generator import Generator
 from utils import adjust_time
@@ -23,6 +23,7 @@ KEEP2STRAVA = {
     "outdoorRunning": "Run",
     "outdoorCycling": "Ride",
     "indoorRunning": "VirtualRun",
+    "mountaineering": "Hiking",
 }
 # need to test
 LOGIN_API = "https://api.gotokeep.com/v1.1/users/login"
@@ -36,6 +37,42 @@ TIMESTAMP_THRESHOLD_IN_DECISECOND = 3_600_000  # Threshold for target timestamp 
 # If your points need trans from gcj02 to wgs84 coordinate which use by Mapbox
 TRANS_GCJ02_TO_WGS84 = True
 
+
+TYPE_DICT_STR = {
+  "Walk": "徒步",
+  "Run": "跑步",
+  "Ride": "骑行",
+}
+
+def get_time_period(now):
+  """
+  根据当前时间判断是凌晨、早上、上午、中午、下午、傍晚、晚上或深夜。
+
+  参数:
+      now (datetime): 当前时间
+
+  返回值:
+      str: "凌晨"、"早上"、"上午"、"中午"、"下午"、"傍晚"、"晚上" 或 "深夜"
+  """
+  current_hour = now.hour
+
+  # 判断时间段
+  if 0 <= current_hour < 6:
+    return "凌晨"
+  elif 6 <= current_hour < 9:
+    return "早上"
+  elif 9 <= current_hour < 12:
+    return "上午"
+  elif 12 <= current_hour < 14:
+    return "中午"
+  elif 14 <= current_hour < 18:
+    return "下午"
+  elif 18 <= current_hour < 20:
+    return "傍晚"
+  elif 20 <= current_hour < 24:
+    return "晚上"
+  else:
+    return "深夜"  # 深夜一般属于凌晨时段
 
 def login(session, mobile, password):
     headers = {
@@ -61,16 +98,16 @@ def get_to_download_runs_ids(session, headers, sport_type):
         )
         if r.ok:
             run_logs = r.json()["data"]["records"]
-
             for i in run_logs:
                 logs = [j["stats"] for j in i["logs"]]
-                result.extend(k["id"] for k in logs if not k["isDoubtful"])
+                if logs[0]["doneDate"] > '2025-07-17':
+                  result.extend(k["id"] for k in logs if not k["isDoubtful"])
             last_date = r.json()["data"]["lastTimestamp"]
-            since_time = datetime.utcfromtimestamp(last_date / 1000)
+            since_time = datetime.fromtimestamp(last_date / 1000, tz=timezone.utc)
             print(f"pares keep ids data since {since_time}")
             time.sleep(1)  # spider rule
-            if not last_date:
-                break
+            # if not last_date:
+            break
     return result
 
 
@@ -108,15 +145,31 @@ def parse_raw_data_to_nametuple(
 
     start_time = run_data["startTime"]
     avg_heart_rate = None
+    elevation_gain = None
     decoded_hr_data = []
     if run_data["heartRate"]:
         avg_heart_rate = run_data["heartRate"].get("averageHeartRate", None)
         heart_rate_data = run_data["heartRate"].get("heartRates", None)
-        if heart_rate_data is not None:
+        if heart_rate_data:
             decoded_hr_data = decode_runmap_data(heart_rate_data)
         # fix #66
         if avg_heart_rate and avg_heart_rate < 0:
             avg_heart_rate = None
+    if run_data["region"]:
+      location_dict = run_data["region"]
+      address_levels = [
+        (location_dict.get('district'), False),  # 原始district，空值则不保留
+        (location_dict.get('city'), False),      # 城市，空值不保留
+        (location_dict.get('province'), False),  # 省份，空值不保留
+        (location_dict.get('country'), False)    # 国家，空值不保留
+      ]
+      # 过滤空值，仅保留有内容的部分
+      valid_parts = []
+      for part, is_manual in address_levels:
+        # 手动补充的部分强制保留（即使为空字符串），原始字段为空则跳过
+        if is_manual or (part and part.strip()):
+          valid_parts.append(part.strip())
+      run_data["region"] = ", ".join(valid_parts)
 
     if run_data["geoPoints"]:
         run_points_data = decode_runmap_data(run_data["geoPoints"], True)
@@ -131,34 +184,47 @@ def parse_raw_data_to_nametuple(
                 p["longitude"] = run_points_data[i][1]
 
         for p in run_points_data_gpx:
+            if "timestamp" not in p:
+                if "unixTimestamp" in p:
+                    p["timestamp"] = p["unixTimestamp"]
+                else:
+                    p["timestamp"] = 0
             p_hr = find_nearest_hr(decoded_hr_data, int(p["timestamp"]), start_time)
             if p_hr:
                 p["hr"] = p_hr
-        if with_download_gpx:
-            if str(keep_id) not in old_gpx_ids and run_data["dataType"].startswith(
-                "outdoor"
-            ):
-                gpx_data = parse_points_to_gpx(
-                    run_points_data_gpx, start_time, KEEP2STRAVA[run_data["dataType"]]
-                )
-                download_keep_gpx(gpx_data, str(keep_id))
+
+        if (
+            run_data["dataType"].startswith("outdoor")
+            or run_data["dataType"] == "mountaineering"
+        ):
+            gpx_data = parse_points_to_gpx(
+                run_points_data_gpx, start_time, KEEP2STRAVA[run_data["dataType"]]
+            )
+            elevation_gain = gpx_data.get_uphill_downhill().uphill
+            if with_download_gpx and str(keep_id) not in old_gpx_ids:
+                download_keep_gpx(gpx_data.to_xml(), str(keep_id))
     else:
         print(f"ID {keep_id} no gps data")
     polyline_str = polyline.encode(run_points_data) if run_points_data else ""
     start_latlng = start_point(*run_points_data[0]) if run_points_data else None
-    start_date = datetime.utcfromtimestamp(start_time / 1000)
+    start_date = datetime.fromtimestamp(start_time / 1000, tz=timezone.utc)
     tz_name = run_data.get("timezone", "")
     start_date_local = adjust_time(start_date, tz_name)
-    end = datetime.utcfromtimestamp(run_data["endTime"] / 1000)
+    end = datetime.fromtimestamp(run_data["endTime"] / 1000, tz=timezone.utc)
     end_local = adjust_time(end, tz_name)
     if not run_data["duration"]:
         print(f"ID {keep_id} has no total time just ignore please check")
         return
+    cast_type_str = TYPE_DICT_STR[KEEP2STRAVA[(run_data['dataType'])]] if KEEP2STRAVA[(run_data['dataType'])] in TYPE_DICT_STR else KEEP2STRAVA[(run_data['dataType'])]
     d = {
         "id": int(keep_id),
-        "name": f"{KEEP2STRAVA[run_data['dataType']]} from keep",
+        "name": get_time_period(datetime.fromtimestamp(
+          start_time
+          / 1000
+        )) + cast_type_str,
         # future to support others workout now only for run
         "type": f"{KEEP2STRAVA[(run_data['dataType'])]}",
+        "subtype": f"{KEEP2STRAVA[(run_data['dataType'])]}",
         "start_date": datetime.strftime(start_date, "%Y-%m-%d %H:%M:%S"),
         "end": datetime.strftime(end, "%Y-%m-%d %H:%M:%S"),
         "start_date_local": datetime.strftime(start_date_local, "%Y-%m-%d %H:%M:%S"),
@@ -173,8 +239,8 @@ def parse_raw_data_to_nametuple(
             seconds=int((run_data["endTime"] - run_data["startTime"]) / 1000)
         ),
         "average_speed": run_data["distance"] / run_data["duration"],
+        "elevation_gain": elevation_gain,
         "location_country": str(run_data.get("region", "")),
-        "source": "Keep",
     }
     return namedtuple("x", d.keys())(*d.values())
 
@@ -182,16 +248,17 @@ def parse_raw_data_to_nametuple(
 def get_all_keep_tracks(
     email, password, old_tracks_ids, keep_sports_data_api, with_download_gpx=False
 ):
-    if with_download_gpx and not os.path.exists(GPX_FOLDER):
-        os.mkdir(GPX_FOLDER)
+    if with_download_gpx and not os.path.exists(KEEP_GPX_FOLDER):
+        os.mkdir(KEEP_GPX_FOLDER)
     s = requests.Session()
+
     s, headers = login(s, email, password)
     tracks = []
     for api in keep_sports_data_api:
         runs = get_to_download_runs_ids(s, headers, api)
         runs = [run for run in runs if run.split("_")[1] not in old_tracks_ids]
         print(f"{len(runs)} new keep {api} data to generate")
-        old_gpx_ids = os.listdir(GPX_FOLDER)
+        old_gpx_ids = os.listdir(KEEP_GPX_FOLDER)
         old_gpx_ids = [i.split(".")[0] for i in old_gpx_ids if not i.startswith(".")]
         for run in runs:
             print(f"parsing keep id {run}")
@@ -202,7 +269,7 @@ def get_all_keep_tracks(
                 )
                 tracks.append(track)
             except Exception as e:
-                print(f"Something wrong paring keep id {run}" + str(e))
+                print(f"Something wrong paring keep id {run}: " + str(e))
     return tracks
 
 
@@ -213,33 +280,41 @@ def parse_points_to_gpx(run_points_data, start_time, sport_type):
     Args:
         run_id (str): The ID of the run.
         run_points_data (list of dict): A list of run data points.
-        start_time (int): The start time for adjusting timestamps. Note that the unit of the start_time is millsecond
+        start_time (int): The start time for adjusting timestamps. Note that the unit of the start_time is millisecond
 
     Returns:
         gpx_data (str): GPX data in string format.
     """
     points_dict_list = []
     # early timestamp fields in keep's data stands for delta time, but in newly data timestamp field stands for exactly time,
-    # so it does'nt need to plus extra start_time
-    if run_points_data[0]["timestamp"] > TIMESTAMP_THRESHOLD_IN_DECISECOND:
+    # so it doesn't need to plus extra start_time
+    if (
+        run_points_data
+        and run_points_data[0]["timestamp"] > TIMESTAMP_THRESHOLD_IN_DECISECOND
+    ):
         start_time = 0
 
     for point in run_points_data:
         points_dict = {
             "latitude": point["latitude"],
             "longitude": point["longitude"],
-            "time": datetime.utcfromtimestamp(
+            "time": datetime.fromtimestamp(
                 (point["timestamp"] * 100 + start_time)
-                / 1000  # note that the timestamp of a point is decisecond(分秒)
+                / 1000,  # note that the timestamp of a point is decisecond(分秒)
+                tz=timezone.utc,
             ),
-            "elevation": point.get("verticalAccuracy"),
+            "elevation": point.get("altitude"),
             "hr": point.get("hr"),
         }
         points_dict_list.append(points_dict)
     gpx = gpxpy.gpx.GPX()
     gpx.nsmap["gpxtpx"] = "http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
     gpx_track = gpxpy.gpx.GPXTrack()
-    gpx_track.name = "gpx from keep"
+    cast_type_str = TYPE_DICT_STR[sport_type] if sport_type in TYPE_DICT_STR else sport_type
+    gpx_track.name = get_time_period(datetime.fromtimestamp(
+      (point["timestamp"] * 100 + start_time)
+      / 1000
+      )) + cast_type_str
     gpx_track.type = sport_type
     gpx.tracks.append(gpx_track)
 
@@ -262,7 +337,7 @@ def parse_points_to_gpx(run_points_data, start_time, sport_type):
             )
             point.extensions.append(gpx_extension_hr)
         gpx_segment.points.append(point)
-    return gpx.to_xml()
+    return gpx
 
 
 def find_nearest_hr(
@@ -275,9 +350,9 @@ def find_nearest_hr(
         heart_rate_data (list of dict): A list of heart rate data points, where each point is a dictionary
             containing at least "timestamp" and "beatsPerMinute" keys.
         target_time (float): The target timestamp for which to find the nearest heart rate data point. Please Note that the unit of target_time is decisecond(分秒),
-            means 1/10 of a second ,this is very unsual!! so when we convert a target_time to second we need to divide by 10, and when we convert a target time to millsecond
+            means 1/10 of a second ,this is very unusual!! so when we convert a target_time to second we need to divide by 10, and when we convert a target time to millisecond
             we need to times 100.
-        start_time (float): The reference start time. the unit of start_time is normal millsecond timestamp
+        start_time (float): The reference start time. the unit of start_time is normal millisecond timestamp
         threshold (float, optional): The maximum allowed time difference to consider a data point as the nearest.
             Default is HR_THRESHOLD, the unit is decisecond(分秒)
 
@@ -290,7 +365,7 @@ def find_nearest_hr(
     if target_time > TIMESTAMP_THRESHOLD_IN_DECISECOND:
         target_time = (
             target_time * 100 - start_time
-        ) / 100  # note that the unit of target_time is decisecond(分秒) and the unit of start_time is normal millsecond
+        ) / 100  # note that the unit of target_time is decisecond and the unit of start_time is normal millisecond
 
     for item in hr_data_list:
         timestamp = item["timestamp"]
@@ -311,11 +386,12 @@ def find_nearest_hr(
 def download_keep_gpx(gpx_data, keep_id):
     try:
         print(f"downloading keep_id {str(keep_id)} gpx")
-        file_path = os.path.join(GPX_FOLDER, str(keep_id) + ".gpx")
-        with open(file_path, "w") as fb:
+        file_path = os.path.join(KEEP_GPX_FOLDER, str(keep_id) + ".gpx")
+        with open(file_path, "w", encoding="utf-8") as fb:
             fb.write(gpx_data)
         return file_path
-    except:
+    except Exception as e:
+        print(f"Something wrong to download keep gpx {str(e)}")
         print(f"wrong id {keep_id}")
         pass
 
@@ -330,18 +406,19 @@ def run_keep_sync(email, password, keep_sports_data_api, with_download_gpx=False
 
     activities_list = generator.load()
     with open(JSON_FILE, "w") as f:
-        json.dump(activities_list, f, indent=0)
+        json.dump(activities_list, f)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("phone_number", help="keep login phone number")
     parser.add_argument("password", help="keep login password")
+    # default=["running", "hiking", "cycling"],
     parser.add_argument(
         "--sync-types",
         dest="sync_types",
         nargs="+",
-        default=["running", "hiking", "cycling"],
+        default=["running", "cycling"],
         help="sync sport types from keep, default is running, you can choose from running, hiking, cycling",
     )
     parser.add_argument(

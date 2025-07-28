@@ -4,7 +4,7 @@ import shutil
 import time
 
 import gpxpy as mod_gpxpy
-from config import GPX_FOLDER
+from config import GPX_FOLDER, KEEP_GPX_FOLDER
 from strava_sync import run_strava_sync
 from stravalib.exc import ActivityUploadFailed, RateLimitTimeout
 from utils import get_strava_last_time, make_strava_client, upload_file_to_strava
@@ -113,4 +113,4 @@ if __name__ == "__main__":
         options.client_id, options.client_secret, options.strava_refresh_token
     )
 
-    move_files_to_subdirectory(GPX_FOLDER, GPX_FOLDER + "/codoon")
+    move_files_to_subdirectory(GPX_FOLDER, KEEP_GPX_FOLDER)
