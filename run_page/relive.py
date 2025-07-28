@@ -157,6 +157,7 @@ if __name__ == '__main__':
             id = item["id"]
             if id in upList:
                 print("set video to database")
+                print(item)
                 share_url = item["share_url"]
                 video_url = item["video_url"]
                 created_at = item["start_date_local"][:16].replace('T', ' ')
