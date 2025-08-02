@@ -108,6 +108,7 @@ class Garmin:
             url = url + "&activityType=running"
         return await self.fetch_data(url)
 
+
     async def get_activity(self, activity_id):
         """
         Fetch activity detail
@@ -129,7 +130,53 @@ class Garmin:
         response = await self.req.get(url, headers=self.headers)
         response.raise_for_status()
         return response.read()
-
+    async def change_to_run(self, activity_id):
+      json_data = {
+        'activityTypeDTO': {
+          'typeId': 2,
+          'typeKey': 'running',
+          'parentTypeId': 4,
+          'isHidden': False,
+          'restricted': False,
+          'trimmable': True,
+        },
+        'activityName': '洛阳市 跑步'
+      }
+      url = self.activity_url.format(activity_id)
+      rep = await self.req.put(
+        url,
+        cookies=self.cookies,
+        headers=self.headers,
+        json=json_data,
+      )
+    async def change_type(self, activity):
+      print("修改类型名称")
+      if activity is None:
+        return
+      activityId = activity["activityId"]
+      activityName = activity["activityName"]
+      averageSpeed = round(activity["averageSpeed"]* 3.6, 2)
+      activity_type = 'running' if averageSpeed < 20 else 'cycling'
+      activity_type_str = '跑步' if averageSpeed < 20 else '骑行'
+      activity_name = activityName.replace("其他", activity_type_str)
+      json_data = {
+        'activityTypeDTO': {
+          'typeId': 2,
+          'typeKey': activity_type,
+          'parentTypeId': 4,
+          'isHidden': False,
+          'restricted': False,
+          'trimmable': True,
+        },
+        'activityName': activity_name,
+      }
+      url = self.activity_url.format(activityId)
+      rep = await self.req.put(
+        url,
+        cookies=self.cookies,
+        headers=self.headers,
+        json=json_data,
+      )
     async def upload_activities_original_from_strava(
         self, datas, use_fake_garmin_device=False
     ):
@@ -185,6 +232,8 @@ class Garmin:
             return
         try:
             resp = res.json()["detailedImportResult"]
+            last_activity = await self.get_activities(0, 1)
+            await self.change_type(last_activity)
             print("garmin upload success: ", resp)
         except Exception as e:
             print("garmin upload failed: ", e)
