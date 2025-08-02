@@ -8,7 +8,8 @@ parent = os.path.dirname(current)
 
 OUTPUT_DIR = os.path.join(parent, "activities")
 GPX_FOLDER = os.path.join(parent, "GPX_OUT")
-KEEP_GPX_FOLDER = os.path.join(parent, "GPX_OUT/keep")
+# GPX_OUT/keep
+KEEP_GPX_FOLDER = os.path.join(parent, "GPX_OUT/codoon")
 TCX_FOLDER = os.path.join(parent, "TCX_OUT")
 FIT_FOLDER = os.path.join(parent, "FIT_OUT")
 ENDOMONDO_FILE_DIR = os.path.join(parent, "Workouts")
