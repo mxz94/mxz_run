@@ -159,6 +159,7 @@ class Garmin:
       activity_type = 'running' if averageSpeed < 20 else 'cycling'
       activity_type_str = '跑步' if averageSpeed < 20 else '骑行'
       activity_name = activityName.replace("其他", activity_type_str)
+      print(activity_name)
       json_data = {
         'activityTypeDTO': {
           'typeId': 2,
@@ -177,6 +178,8 @@ class Garmin:
         headers=self.headers,
         json=json_data,
       )
+      print(rep.text)
+      print(rep.json())
     async def upload_activities_original_from_strava(
         self, datas, use_fake_garmin_device=False
     ):
