@@ -160,6 +160,7 @@ class Garmin:
         headers=self.headers,
         json=json_data,
       )
+      print(rep.status_code)
     async def upload_activities_original_from_strava(
         self, datas, use_fake_garmin_device=False
     ):
@@ -215,6 +216,7 @@ class Garmin:
             return
         try:
             resp = res.json()["detailedImportResult"]
+            time.sleep(2)
             last_activity = await self.get_activities(0, 1)
             await self.change_type(last_activity)
             print("garmin upload success: ", resp)
