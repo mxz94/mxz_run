@@ -153,7 +153,6 @@ class Garmin:
       print("修改类型名称")
       if activity is None:
         return
-      print(activity)
       activityId = activity["activityId"]
       activityName = activity["activityName"]
       averageSpeed = round(activity["averageSpeed"]* 3.6, 2)
@@ -172,6 +171,7 @@ class Garmin:
         },
         'activityName': activity_name,
       }
+      print(json_data)
       url = self.activity_url.format(activityId)
       rep = await self.req.put(
         url,
@@ -179,6 +179,7 @@ class Garmin:
         headers=self.headers,
         json=json_data,
       )
+      print("日志")
       print(rep.text)
       print(rep.json())
     async def upload_activities_original_from_strava(
