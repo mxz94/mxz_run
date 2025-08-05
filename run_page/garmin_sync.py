@@ -160,7 +160,6 @@ class Garmin:
         headers=self.headers,
         json=json_data,
       )
-      print(rep.json())
     async def upload_activities_original_from_strava(
         self, datas, use_fake_garmin_device=False
     ):
