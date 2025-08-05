@@ -130,25 +130,6 @@ class Garmin:
         response = await self.req.get(url, headers=self.headers)
         response.raise_for_status()
         return response.read()
-    async def change_to_run(self, activity_id):
-      json_data = {
-        'activityTypeDTO': {
-          'typeId': 2,
-          'typeKey': 'running',
-          'parentTypeId': 4,
-          'isHidden': False,
-          'restricted': False,
-          'trimmable': True,
-        },
-        'activityName': '洛阳市 跑步'
-      }
-      url = self.activity_url.format(activity_id)
-      rep = await self.req.put(
-        url,
-        cookies=self.cookies,
-        headers=self.headers,
-        json=json_data,
-      )
     async def change_type(self, activity):
       print("修改类型名称")
       if not activity:
@@ -176,7 +157,6 @@ class Garmin:
       url = self.activity_url.format(activityId)
       rep = await self.req.put(
         url,
-        cookies=self.cookies,
         headers=self.headers,
         json=json_data,
       )
