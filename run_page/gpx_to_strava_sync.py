@@ -109,8 +109,8 @@ if __name__ == "__main__":
         time.sleep(1)
 
     time.sleep(10)
-    # run_strava_sync(
-    #     options.client_id, options.client_secret, options.strava_refresh_token
-    # )
+    run_strava_sync(
+        options.client_id, options.client_secret, options.strava_refresh_token
+    )
 
     move_files_to_subdirectory(GPX_FOLDER, KEEP_GPX_FOLDER)
