@@ -151,8 +151,9 @@ class Garmin:
       )
     async def change_type(self, activity):
       print("修改类型名称")
-      if activity is None:
+      if not activity:
         return
+      activity = activity[0]
       activityId = activity["activityId"]
       activityName = activity["activityName"]
       averageSpeed = round(activity["averageSpeed"]* 3.6, 2)
@@ -179,8 +180,6 @@ class Garmin:
         headers=self.headers,
         json=json_data,
       )
-      print("日志")
-      print(rep.text)
       print(rep.json())
     async def upload_activities_original_from_strava(
         self, datas, use_fake_garmin_device=False
