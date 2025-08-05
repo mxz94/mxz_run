@@ -153,6 +153,7 @@ class Garmin:
       print("修改类型名称")
       if activity is None:
         return
+      print(activity)
       activityId = activity["activityId"]
       activityName = activity["activityName"]
       averageSpeed = round(activity["averageSpeed"]* 3.6, 2)
