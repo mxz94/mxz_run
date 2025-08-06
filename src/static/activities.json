@@ -4761,7 +4761,7 @@
 },
 {
 "run_id": 15308341402,
-"name": "中午跑步",
+"name": "\u665a\u4e0a\u8dd1\u6b65",
 "distance": 4969.2,
 "moving_time": "0:27:22",
 "type": "Run",
@@ -4809,5 +4809,22 @@
 "relive_url": null,
 "video_url": null,
 "streak": 1
+},
+{
+"run_id": 15360012088,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 3166.7,
+"moving_time": "0:16:39",
+"type": "Run",
+"start_date": "2025-08-05 13:27:11+00:00",
+"start_date_local": "2025-08-05 21:27:11",
+"location_country": "\u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "qahrEwzvmT\\M@WYk@[gA]gDKk@Uc@Y_@Oa@Ek@GuBGYKW_@u@i@oAUw@[kDg@_Da@mA[y@OU]YKCYDUNOXG\\A\\BNf@fB^bAb@rAJh@Fh@@t@Nx@z@tD\\fBz@jDHf@n@lCf@hBd@`CX~@jAtCZl@h@r@lBlB\\d@FBt@v@\\ThC~CpArBJVb@`A`AhALd@JlAP^ZV|@`@PPVl@d@b@Ln@N`@VP^HHDPNZp@d@f@d@TPDRHXRV\\d@|@NHRBv@SH?RDN`@TlAPf@V`@PNhAf@XBZMLQDM?YCWO[OUu@u@y@]a@Wm@s@QOoA[k@q@c@eA[]c@S",
+"average_heartrate": null,
+"average_speed": 3.17,
+"source": "strava",
+"relive_url": "https://www.relive.com/view/vQvyK38JW46",
+"video_url": "https://video.relive.cc/elif-56881456991_garmin-health_1754449126254.mp4?x-ref=app",
+"streak": 2
 }
 ]
