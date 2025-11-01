@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <trk>
+    <name>晚上跑步</name>
+    <type>running</type>
+    <trkseg>
+      <trkpt lat="34.59752" lon="112.509863">
+        <ele>162.2</ele>
+        <time>2025-11-01T12:35:17Z</time>
+      </trkpt>
+      <trkpt lat="34.597782" lon="112.509477">
+        <ele>162.2</ele>
+        <time>2025-11-01T12:35:20Z</time>
+      </trkpt>
+      <trkpt lat="34.597818" lon="112.509517">
+        <ele>162</ele>
+        <time>2025-11-01T12:35:23Z</time>
+      </trkpt>
+      <trkpt lat="34.597918" lon="112.509622">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:26Z</time>
+      </trkpt>
+      <trkpt lat="34.597988" lon="112.509723">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:29Z</time>
+      </trkpt>
+      <trkpt lat="34.598035" lon="112.509818">
+        <ele>162.1</ele>
+        <time>2025-11-01T12:35:32Z</time>
+      </trkpt>
+      <trkpt lat="34.598082" lon="112.509899">
+        <ele>162</ele>
+        <time>2025-11-01T12:35:35Z</time>
+      </trkpt>
+      <trkpt lat="34.598131" lon="112.50998">
+        <ele>162.1</ele>
+        <time>2025-11-01T12:35:38Z</time>
+      </trkpt>
+      <trkpt lat="34.598178" lon="112.510062">
+        <ele>162.1</ele>
+        <time>2025-11-01T12:35:41Z</time>
+      </trkpt>
+      <trkpt lat="34.598212" lon="112.510152">
+        <ele>162.1</ele>
+        <time>2025-11-01T12:35:44Z</time>
+      </trkpt>
+      <trkpt lat="34.598246" lon="112.510242">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:47Z</time>
+      </trkpt>
+      <trkpt lat="34.598285" lon="112.51032">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:50Z</time>
+      </trkpt>
+      <trkpt lat="34.598321" lon="112.510369">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:53Z</time>
+      </trkpt>
+      <trkpt lat="34.598344" lon="112.510404">
+        <ele>162.3</ele>
+        <time>2025-11-01T12:35:56Z</time>
+      </trkpt>
+      <trkpt lat="34.598352" lon="112.510424">
+        <ele>162.4</ele>
+        <time>2025-11-01T12:35:59Z</time>
+      </trkpt>
+      <trkpt lat="34.598347" lon="112.510425">
+        <ele>162.6</ele>
+        <time>2025-11-01T12:36:02Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
