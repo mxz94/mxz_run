@@ -146,6 +146,7 @@ if __name__ == '__main__':
             print("generate video " + str(item["id"]))
             generate_data(item["id"])
             upList.append(item["id"])
+            print("wait gennarte mp4 url")
             time.sleep(180)
     # 更新db
     if len(upList) > 0:
