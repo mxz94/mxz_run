@@ -153,6 +153,7 @@ if __name__ == '__main__':
         data = activity_list()
         #  根据id 进行倒叙排序 取前20个
         data = sorted(data, key=lambda x: x["id"], reverse=True)
+        print("refresh mp4 url")
         for item in data:
             id = item["id"]
             if id in upList:
