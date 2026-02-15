@@ -4569,7 +4569,7 @@
 "average_speed": 3.664,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/veqzdRXyABO",
-"video_url": "https://video.relive.cc/elif-86190960591_garmin-health_1750567611504.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-86190960591_garmin-health_1771136312623.mp4?x-ref=app",
 "streak": 2
 },
 {
@@ -5454,6 +5454,40 @@
 "source": "strava",
 "relive_url": null,
 "video_url": null,
+"streak": 1
+},
+{
+"run_id": 17401746117,
+"name": "\u4e0b\u5348\u8dd1\u6b65",
+"distance": 2128.7,
+"moving_time": "0:10:09",
+"type": "Run",
+"start_date": "2026-02-14 09:27:48+00:00",
+"start_date_local": "2026-02-14 17:27:48",
+"location_country": "\u5965\u4f53\u897f\u8857, \u674e\u6751\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "wabrE{a_nTu@Os@CQEe@TOTGP?VBb@LVDFVJXBlDOPGNKJSF[@WE_@QYUMOCY?iCJe@HMJMPGRCTBf@FLRVRJRBfDSTELIHGHWDU@c@CQOUQMOGQAyCLQ@QFMHMNIVAh@B\\PVPJRDR@xCQRENGJKJSDW?g@COMUMK[IeDHOBYJSTIVCN@^BXPTLHRFPB`DS^KHIJOFUBUCe@S_@OK]G_DLSBQFWZSl@BZJ^PRNHb@D~AMv@A^GJIJKFOHi@?WCWIQMMM?ML",
+"average_heartrate": null,
+"average_speed": 3.495,
+"source": "strava",
+"relive_url": "https://www.relive.com/view/vevYzkeV2yO",
+"video_url": "https://video.relive.cc/elif-21352717812_garmin-health_1771136100116.mp4?x-ref=app",
+"streak": 1
+},
+{
+"run_id": 17401746140,
+"name": "\u4e0b\u5348\u8dd1\u6b65",
+"distance": 981.6,
+"moving_time": "0:04:36",
+"type": "Run",
+"start_date": "2026-02-14 09:54:28+00:00",
+"start_date_local": "2026-02-14 17:54:28",
+"location_country": "\u5965\u4f53\u897f\u8857, \u674e\u6751\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "{fbrEo`_nT@LGXD^ZXPFh@CnAQx@CXMHOF[@]AMESOQUMKCS?kBJ}@@OBGBOPEPCT?LD\\HRXVXHjCUp@CNEJKL_@?UASIUMQOMQEY@{@HcBHQFMLITETALDZLTNNJDXBnCW",
+"average_heartrate": null,
+"average_speed": 3.557,
+"source": "strava",
+"relive_url": "https://www.relive.com/view/vZqNK8gNQGv",
+"video_url": "https://video.relive.cc/elif-70552717812_garmin-health_1771135915619.mp4?x-ref=app",
 "streak": 1
 }
 ]
