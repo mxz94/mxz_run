@@ -4450,7 +4450,7 @@
 "average_speed": 3.375,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/vXOnA4dA3Bv",
-"video_url": "https://video.relive.cc/elif-14970001391_garmin-health_1764741000223.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-14970001391_garmin-health_1772518103112.mp4?x-ref=app",
 "streak": 1
 },
 {
@@ -5506,5 +5506,39 @@
 "relive_url": null,
 "video_url": null,
 "streak": 1
+},
+{
+"run_id": 17583694428,
+"name": "\u5348\u95f4\u8dd1\u6b65",
+"distance": 2165.4,
+"moving_time": "0:13:54",
+"type": "Run",
+"start_date": "2026-03-03 04:20:50+00:00",
+"start_date_local": "2026-03-03 12:20:50",
+"location_country": "\u4e09\u5ddd\u5927\u9053, \u516b\u91cc\u5802\u793e\u533a, \u5173\u6797\u8857\u9053, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "ayfrEc~rmTc@[E?Ma@EUF_@JYPANUBKFg@?WGSIGYKSCUIqAg@o@Ok@W}@YIGKAs@Y_AYg@SmAa@OI}@WuB{@WQa@c@]WIEQQaCuAk@_@m@YMMsAy@]YM?KMc@YMEa@]y@e@e@_@wBwAc@c@QGEG{@m@]_@CGOEIWQUQm@U]GYQYWo@Me@EECKCEKUCUEIAICI@OJWXyA@@BEnATRHRPVLRDXCBFA\\A?@@AUBIBAFG?EC?DCAM@A@B?CD??EUF@AG?EI?KAAE@Oi@AIk@u@Ga@MO?ICEGAEOe@i@EKIGESKIBOJMECCK?@C??@CCDJADIGFHBG?DAGBD@AC@@@CCBA?D?CCD@@AA@@?AB@@CAAAFGABAAO@OGc@S_@?GO[AKSa@UW@@AEKOG?F@ABEAHDAABCC??D@AD@EEFFE?@AE@FACA?BB?C@B?BAE@BICBCA@@@AF?E?F?A?@CGBB@A@?AC@D??CC@D@ECC@@EC@B@CF?IFE?CGHBB@AC@BC?EAFCCA@FAC@@BCCBD?EABCCCD@A",
+"average_heartrate": null,
+"average_speed": 2.596,
+"source": "strava",
+"relive_url": null,
+"video_url": null,
+"streak": 2
+},
+{
+"run_id": 17583781848,
+"name": "\u5348\u540e\u8dd1\u6b65",
+"distance": 840.4,
+"moving_time": "0:05:33",
+"type": "Run",
+"start_date": "2026-03-03 05:13:22+00:00",
+"start_date_local": "2026-03-03 13:13:22",
+"location_country": "\u4e09\u5ddd\u5927\u9053, \u516b\u91cc\u5802\u793e\u533a, \u5173\u6797\u8857\u9053, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "eyfrEg~rmTGj@?AA?KTOJCDG@SJGHG@cA~AQFKNJF?BGFEPSVGBk@Ca@LMPWRYb@]ZKBSRSFs@`@UJuAb@GAm@X_ANmBBGGGCG@OEU?KDG?SDIA?BCBM@OHG?KDSACDQBGFWBOGY@GDC?KDWCGB_@MwAECC",
+"average_heartrate": null,
+"average_speed": 2.524,
+"source": "strava",
+"relive_url": null,
+"video_url": null,
+"streak": 2
 }
 ]
