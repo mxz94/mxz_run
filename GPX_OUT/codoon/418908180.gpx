@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <trk>
+    <name>下午徒步</name>
+    <type>hiking</type>
+    <trkseg>
+      <trkpt lat="34.598478" lon="112.501645">
+        <ele>101</ele>
+        <time>2026-03-15T08:09:29Z</time>
+      </trkpt>
+      <trkpt lat="34.5984" lon="112.50163">
+        <ele>100.9</ele>
+        <time>2026-03-15T08:09:31Z</time>
+      </trkpt>
+      <trkpt lat="34.598425" lon="112.501705">
+        <ele>100.8</ele>
+        <time>2026-03-15T08:09:35Z</time>
+      </trkpt>
+      <trkpt lat="34.598522" lon="112.501778">
+        <ele>100.8</ele>
+        <time>2026-03-15T08:09:38Z</time>
+      </trkpt>
+      <trkpt lat="34.598601" lon="112.501833">
+        <ele>100.5</ele>
+        <time>2026-03-15T08:09:41Z</time>
+      </trkpt>
+      <trkpt lat="34.598662" lon="112.501887">
+        <ele>100.6</ele>
+        <time>2026-03-15T08:09:44Z</time>
+      </trkpt>
+      <trkpt lat="34.598715" lon="112.501939">
+        <ele>100.6</ele>
+        <time>2026-03-15T08:09:47Z</time>
+      </trkpt>
+      <trkpt lat="34.598786" lon="112.501993">
+        <ele>101</ele>
+        <time>2026-03-15T08:09:50Z</time>
+      </trkpt>
+      <trkpt lat="34.598859" lon="112.502043">
+        <ele>100.9</ele>
+        <time>2026-03-15T08:09:53Z</time>
+      </trkpt>
+      <trkpt lat="34.598935" lon="112.502085">
+        <ele>101</ele>
+        <time>2026-03-15T08:09:56Z</time>
+      </trkpt>
+      <trkpt lat="34.599008" lon="112.502125">
+        <ele>101</ele>
+        <time>2026-03-15T08:09:59Z</time>
+      </trkpt>
+      <trkpt lat="34.599078" lon="112.502162">
+        <ele>101.1</ele>
+        <time>2026-03-15T08:10:02Z</time>
+      </trkpt>
+      <trkpt lat="34.599123" lon="112.502188">
+        <ele>101.1</ele>
+        <time>2026-03-15T08:10:04Z</time>
+      </trkpt>
+      <trkpt lat="34.599227" lon="112.502227">
+        <ele>101.1</ele>
+        <time>2026-03-15T08:10:08Z</time>
+      </trkpt>
+      <trkpt lat="34.599302" lon="112.502253">
+        <ele>100.9</ele>
+        <time>2026-03-15T08:10:11Z</time>
+      </trkpt>
+      <trkpt lat="34.599367" lon="112.502281">
+        <ele>100.9</ele>
+        <time>2026-03-15T08:10:14Z</time>
+      </trkpt>
+      <trkpt lat="34.599433" lon="112.502315">
+        <ele>100.9</ele>
+        <time>2026-03-15T08:10:17Z</time>
+      </trkpt>
+      <trkpt lat="34.599495" lon="112.502356">
+        <ele>101</ele>
+        <time>2026-03-15T08:10:20Z</time>
+      </trkpt>
+      <trkpt lat="34.599543" lon="112.502387">
+        <ele>101.1</ele>
+        <time>2026-03-15T08:10:23Z</time>
+      </trkpt>
+      <trkpt lat="34.599612" lon="112.502425">
+        <ele>101</ele>
+        <time>2026-03-15T08:10:26Z</time>
+      </trkpt>
+      <trkpt lat="34.599747" lon="112.502482">
+        <ele>100.8</ele>
+        <time>2026-03-15T08:10:30Z</time>
+      </trkpt>
+      <trkpt lat="34.599834" lon="112.502515">
+        <ele>100.7</ele>
+        <time>2026-03-15T08:10:32Z</time>
+      </trkpt>
+      <trkpt lat="34.599961" lon="112.502563">
+        <ele>100.7</ele>
+        <time>2026-03-15T08:10:35Z</time>
+      </trkpt>
+      <trkpt lat="34.600074" lon="112.502605">
+        <ele>101</ele>
+        <time>2026-03-15T08:10:38Z</time>
+      </trkpt>
+      <trkpt lat="34.600199" lon="112.502642">
+        <ele>101</ele>
+        <time>2026-03-15T08:10:42Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
