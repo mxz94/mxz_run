@@ -4382,7 +4382,7 @@
 "average_speed": 3.567,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/vNOPDZn5Z2O",
-"video_url": "https://video.relive.cc/elif-97906954291_garmin-health_1764741536290.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-97906954291_garmin-health_1774248562386.mp4?x-ref=app",
 "streak": 1
 },
 {
@@ -4416,7 +4416,7 @@
 "average_speed": 6.356,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/vrqDyx8yZwv",
-"video_url": "https://video.relive.cc/8f2f99e8f222-e65a-2fc4-a598-e18605a3_relive_1764741355563.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/8f2f99e8f222-e65a-2fc4-a598-e18605a3_relive_1774248369406.mp4?x-ref=app",
 "streak": 2
 },
 {
@@ -5214,8 +5214,8 @@
 "average_heartrate": null,
 "average_speed": 3.352,
 "source": "strava",
-"relive_url": null,
-"video_url": null,
+"relive_url": "https://www.relive.com/view/vRO7Nge8wKv",
+"video_url": "https://video.relive.cc/elif-14612044902_garmin-health_1774248317432.mp4?x-ref=app",
 "streak": 1
 },
 {
@@ -5676,5 +5676,22 @@
 "relive_url": null,
 "video_url": null,
 "streak": 3
+},
+{
+"run_id": 17824109538,
+"name": "\u4e0b\u5348\u9a91\u884c",
+"distance": 8753.2,
+"moving_time": "0:17:01",
+"type": "Ride",
+"start_date": "2026-03-22 07:04:19+00:00",
+"start_date_local": "2026-03-22 15:04:19",
+"location_country": "\u6768\u5802\u793e\u533a, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "c~crEwiumTiBGoCHWDSLKVF^\\d@dBbBz@t@z@n@xFxD`Q`MzBhBz@z@v@|@r@`Ap@dAl@lAh@pA`@vA\\zAT|AP|AL|ADvA@pACjAMbCgAfJUtC[zEKbAkBxOgAxJwD~ZWlDKxD?|AFrD\\|FZ`DlAjKpAhKrAnMr@lFTnCR~CEUJ^Fh@Bn@z@rZD`D@bD?dGG|C]dIO|CIv@Q`@a@JsDGcA?yCF_FNyBL{DVaCLwCHoCBuGXgGR}DP}JVeUz@o@FJ?A?aIRiLd@{DJsFRgEPkCVsBJkDFH?}AJ}E@kDPuGRWHGJCTAr@BZCZC?LB?@CG@ADB@BIIDERTh@Nb@G",
+"average_heartrate": null,
+"average_speed": 8.573,
+"source": "strava",
+"relive_url": null,
+"video_url": null,
+"streak": 4
 }
 ]
