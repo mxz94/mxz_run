@@ -10,7 +10,7 @@ from stravaweblib import DataFormat
 
 from config import GPX_FOLDER, KEEP_GPX_FOLDER
 from garmin_sync import Garmin
-
+os.environ["GARTH_TELEMETRY_ENABLED"] = "false"
 
 def get_to_generate_files(last_time):
   """
