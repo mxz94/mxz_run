@@ -10,17 +10,30 @@ interface ISiteMetadataResult {
   }[];
 }
 
+const getBasePath = () => {
+  const baseUrl = import.meta.env.BASE_URL;
+  return baseUrl === '/' ? '' : baseUrl;
+};
+
 const data: ISiteMetadataResult = {
-  siteTitle: '运动日志',
-  siteUrl: 'https://mxz-run.pages.dev/',
-  logo: 'https://avatars3.githubusercontent.com/u/6956444?s=460&u=97e1062227c4088db3c987146455245c6fa78441',
+  siteTitle: 'Workouts Map',
+  siteUrl: 'https://zhaohongxuan.github.io',
+  logo: 'https://avatars.githubusercontent.com/u/8613196?v=4',
   description: 'Personal site and blog',
   keywords: 'workouts, running, cycling, riding, roadtrip, hiking, swimming',
   navLinks: [
     {
+      name: 'Strava',
+      url: 'https://www.strava.com/athletes/hank_zhao',
+    },
+    {
+      name: 'Summary',
+      url: `${getBasePath()}/summary`,
+    },
+    {
       name: 'Blog',
-      url: 'https://malanxi.top',
-    }
+      url: 'https://zhaohongxuan.github.io',
+    },
   ],
 };
 

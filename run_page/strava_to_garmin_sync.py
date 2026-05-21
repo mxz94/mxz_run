@@ -48,7 +48,7 @@ def make_gpx_from_points(title, points_dict_list):
     gpx.nsmap["gpxtpx"] = "http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
     gpx_track = gpxpy.gpx.GPXTrack()
     gpx_track.name = title
-    gpx_track.type = "running"
+    gpx_track.type = "Run"
     gpx.tracks.append(gpx_track)
 
     # Create first segment in our GPX track:
@@ -119,7 +119,7 @@ if __name__ == "__main__":
         "--is-cn",
         dest="is_cn",
         action="store_true",
-        help="if garmin accout is cn",
+        help="if garmin account is cn",
     )
     parser.add_argument(
         "--use_fake_garmin_device",
@@ -134,16 +134,16 @@ if __name__ == "__main__":
         options.strava_refresh_token,
     )
     if options.strava_jwt:
-      strava_web_client = WebClient(
-        access_token=strava_client.access_token,
-        jwt=options.strava_jwt,
-      )
+        strava_web_client = WebClient(
+            access_token=strava_client.access_token,
+            jwt=options.strava_jwt,
+        )
     elif options.strava_email and options.strava_password:
-      strava_web_client = WebClient(
-        access_token=strava_client.access_token,
-        email=options.strava_email,
-        password=options.strava_password,
-      )
+        strava_web_client = WebClient(
+            access_token=strava_client.access_token,
+            email=options.strava_email,
+            password=options.strava_password,
+        )
 
     garmin_auth_domain = "CN" if options.is_cn else ""
 
@@ -164,8 +164,8 @@ if __name__ == "__main__":
         print(err)
 
     # Run the strava sync
-    # run_strava_sync(
-    #     options.strava_client_id,
-    #     options.strava_client_secret,
-    #     options.strava_refresh_token,
-    # )
+    run_strava_sync(
+        options.strava_client_id,
+        options.strava_client_secret,
+        options.strava_refresh_token,
+    )

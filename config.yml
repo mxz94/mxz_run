@@ -1,0 +1,56 @@
+# Workout Dashboard 配置文件
+# 修改此文件即可完成个性化设置，无需改动源代码。
+
+# ── 外观 ─────────────────────────────────────────────────────────────────────
+
+# 默认语言：zh（中文）| en（英文）
+# 用户手动切换后会保存到 localStorage，下次访问以用户选择为准
+locale: zh
+
+# 默认主题：system（跟随系统）| light（浅色）| dark（深色）
+theme: light
+
+# ── 运动目标 ──────────────────────────────────────────────────────────────────
+# unit: distance → 单位 km
+# unit: time     → 单位 分钟（适用于健身等无距离运动）
+
+goals:
+  all:
+    yearly: 1200
+    monthly: 100
+    weekly: 25
+    unit: distance
+
+  Run:
+    yearly: 1200
+    monthly: 100
+    weekly: 25
+    unit: distance
+
+  Ride:
+    yearly: 1000
+    monthly: 80
+    weekly: 20
+    unit: distance
+
+  Hike:
+    yearly: 300
+    monthly: 25
+    weekly: 6
+    unit: distance
+
+  Gym:
+    yearly: 6000   # 100 小时
+    monthly: 600   # 10 小时
+    weekly: 150    # 2.5 小时
+    unit: time
+
+# ── 打卡模块 ──────────────────────────────────────────────────────────────────
+# GitHub OAuth App 的 Client ID（Device Flow 不需要 client_secret，client_id 可公开）
+# 注册地址：https://github.com/settings/applications/new
+# Authorization callback URL 填写你的站点域名即可（Device Flow 不实际使用 callback）
+githubClientId: 'Ov23liIA4gcZ3hXZkJnP'
+
+# 打卡数据存储位置（当前 repo），格式：username/repo-name
+repoOwner: 'mxz'
+repoName: 'workouts'

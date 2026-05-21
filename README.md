@@ -1,130 +1,173 @@
-## note1: use v2.0 need change vercel setting from Gatsby to Vite
+# Workout Log
 
-## note2: 2023.09.26 garmin need secret_string(and in Actions) get `python run_page/garmin_sync.py ${secret_string}` if cn `python run_page/garmin_sync.py ${secret_string} --is-cn`
+基于 React + TypeScript + Tailwind CSS 构建的现代运动数据看板，支持跑步、骑行、徒步、健身等多种运动类型的可视化展示。
 
-# [Create a personal workouts home page](http://workouts.ben29.xyz)
+> 数据基于 [running_page](https://github.com/yihong0618/running_page) 项目同步 ， 脚本本项目的 run_page 文件夹下。
+> 在线演示：[zhaohongxuan.github.io/workouts](http://zhaohongxuan.github.io/workouts)
 
-![screenshot](https://user-images.githubusercontent.com/6956444/163125711-24d0ad99-490d-4c04-b89f-5b7fe776eb38.png)
+<img width="1449" height="987" alt="image" src="https://github.com/user-attachments/assets/33c4eef1-0208-4d01-920b-3270633b7201" />
 
-[简体中文](README-CN.md) | English
+## 功能特性
 
-This project is based on [running_page](https://github.com/yihong0618/running_page) and adds support for multi sports types. Follow the steps in the origin repo to deploy.
+- **活动热力图** — GitHub 风格的年度热力图，按运动类型区分颜色（跑步橙、骑行蓝、徒步绿、训练玫红），支持展开月度视图
+- **轨迹墙** — SVG 路线缩略图墙，自动聚合相似路线，支持按年份筛选
+- **路线地图** — Mapbox 驱动的交互式地图，展示所有 GPS 轨迹，支持全屏模式
+- **个人最佳** — 5K / 10K / 半马 / 全马距离的 PR 记录
+- **数据统计** — 年度、月度、周度目标及与同期对比
+- **连续记录** — 连续打卡天数和周数，周历一览本周活动
+- **活动记录** — 分页表格，支持年份和距离筛选
+- **月度日历** — 展示每日运动公里数，hover 显示日期
+- **健身记录** — 力量训练、综合训练等非有氧运动单独展示
+- **双语支持** — 中文 / 英文一键切换
+- **深色模式** — 跟随系统或手动切换
+- **运动筛选** — 全部 / 跑步 / 骑行 / 徒步 / 健身 全局过滤
 
-## New Features
+## 技术栈
 
-1. support multi sports types, like Ride/Hike/Swim/Rowing
-1. support new apps
-   - **[Codoon（咕咚）](#codoon咕咚)** (Couldn't automate for its limitation from the server side)
-   - **[Xingzhe（行者）](#xingzhe行者)**
-1. support [RoadTrip(GoogleMaps)](#roadtripgooglemaps), show Road Trip on maps
+| 类别 | 技术 |
+|---|---|
+| 框架 | React 18 + TypeScript |
+| 构建 | Vite 6 |
+| 样式 | Tailwind CSS v4 |
+| 图表 | Recharts |
+| 地图 | Mapbox GL + react-map-gl |
+| 路线解码 | @mapbox/polyline |
 
-## Custom your page
+## 快速开始
 
-### Change Sports Color
+```bash
+# 安装依赖
+pnpm install
 
-- Modify Ride Color: `RIDE_COLOR` in `src/utils/const.js`
+# 启动开发服务器
+pnpm dev
 
-### Add Sports Type
+# 生产构建
+pnpm build
 
-- Modify `TYPE_DICT` & `MAPPING_TYPE` in `scripts/config.py`
-- Add Type Name and add it into `RUN_TITLES` in `src/utils/const.js`
-- Modify `colorFromType` & `titleForRun` in `src/utils/util.js`
-- see [commit](https://github.com/ben-29/workouts_page/commit/f3a35884d626009d33e05adc76bbc8372498f317)
-- or comment [here](https://github.com/ben-29/workouts_page/issues/20)
-
----
-
-### Codoon（咕咚）
-
-<details>
-<summary>Get your <code>Codoon</code> data</summary>
-
-```python
-python3(python) scripts/codoon_sync.py ${your mobile or email} ${your password}
+# 预览构建产物
+pnpm preview
 ```
 
-example：
+## 数据同步
 
-```python
-python3(python) scripts/codoon_sync.py 13333xxxx xxxx
+活动数据通过 [running_page](https://github.com/yihong0618/running_page) 的同步脚本生成，存储为 `src/static/activities.json`，脚本位于本项目的 `run_page/` 目录下。
+
+### 支持的数据源
+
+| 数据源 | 脚本 | 认证方式 | 备注 |
+|--------|------|----------|------|
+| **Strava** | `strava_sync.py` | OAuth（Client ID / Secret / Refresh Token） | 支持全量同步 |
+| **Strava（近期）** | `strava_sync_recent.py` | 同上，读取环境变量 | 仅同步最近 7 天，适合定时任务 |
+| **Garmin（国际版）** | `garmin_sync.py` | Secret 字符串（由 `get_garmin_secret.py` 生成） | `--only-run` 可只同步跑步 |
+| **Garmin（CN + 国际版）** | `garmin_sync_cn_global.py` | CN Secret + Global Secret 两个字符串 | 同时同步国区和国际区账号 |
+| **Keep** | `keep_sync.py` | 手机号 + 密码 | 国内主流跑步 App |
+| **Nike Run Club** | `nike_sync.py` | Access Token | 从 Nike App 抓取 token |
+| **悦跑圈 JoyRun** | `joyrun_sync.py` | UID + Session ID | 从 App 抓包获取 |
+| **COROS** | `coros_sync.py` | 账号邮箱 + 密码 | 高驰手表 |
+| **行者 XingZhe** | `xingzhe_sync.py` | 账号 + 密码 | 骑行常用平台 |
+| **咕咚 Codoon** | `codoon_sync.py` | HMAC 认证（账号体系） | 需从 App 抓取签名参数 |
+| **OPPO Health** | `oppo_sync.py` | OAuth Refresh Token | OPPO 运动健康 |
+| **本地 GPX 文件** | `gpx_sync.py` | 无需认证 | 将 GPX 文件放入配置的目录即可 |
+| **本地 FIT 文件** | `fit_sync.py` | 无需认证 | 将 FIT 文件放入配置的目录即可 |
+
+### Strava 快速开始
+
+```bash
+# 全量同步
+python run_page/strava_sync.py CLIENT_ID CLIENT_SECRET REFRESH_TOKEN
+
+# 增量同步（最近 7 天，适合配置为定时任务）
+export STRAVA_CLIENT_ID=xxx
+export STRAVA_CLIENT_SECRET=yyy
+export STRAVA_REFRESH_TOKEN=zzz
+python run_page/strava_sync_recent.py
 ```
 
-> use `--with-gpx` flag to save your gpx data
->
-> use `--from-auth-token` flag to login by refresh_token&user_id
+### Garmin 快速开始
 
-![image](https://user-images.githubusercontent.com/6956444/105690972-9efaab00-5f37-11eb-905c-65a198ad2300.png)
+```bash
+# 1. 先生成 secret 字符串（需要 Garmin 账号密码，只需执行一次）
+python run_page/get_garmin_secret.py EMAIL PASSWORD
+# 国区账号加上 --is-cn
+python run_page/get_garmin_secret.py EMAIL PASSWORD --is-cn
 
-example：
-
-```python
-python3(python) scripts/codoon_sync.py 54bxxxxxxx fefxxxxx-xxxx-xxxx --from-auth-token
+# 2. 使用 secret 同步数据
+python run_page/garmin_sync.py SECRET_STRING
 ```
 
-</details>
+> 完整的各平台接入说明请参考 [running_page 项目文档](https://github.com/yihong0618/running_page)。
 
-### Xingzhe（行者）
+## 个性化配置
 
-<details>
-<summary>Get your <code>Xingzhe</code> data</summary>
+编辑根目录 `config.yml` 即可完成个性化设置，无需改动源代码。
 
-```python
-python3(python) scripts/xingzhe_sync.py ${your mobile or email} ${your password}
+### 默认语言与主题
+
+```yaml
+# 默认语言：zh（中文）| en（英文）
+locale: zh
+
+# 默认主题：system（跟随系统）| light（浅色）| dark（深色）
+theme: system
 ```
 
-example：
+> 用户手动切换后，选择会保存在 `localStorage`，下次访问以用户选择为准。
 
-```python
-python3(python) scripts/xingzhe_sync.py 13333xxxx xxxx
+### 运动目标
+
+支持按运动类型分别设置年度 / 月度 / 周度目标。跑步、骑行、徒步的目标以 **km** 为单位；健身目标以**分钟**为单位，进度条和展示会自动切换为时长。
+
+```yaml
+goals:
+  all:   { yearly: 2000, monthly: 150, weekly: 35,  unit: distance }
+  Run:   { yearly: 1200, monthly: 100, weekly: 25,  unit: distance }
+  Ride:  { yearly: 3000, monthly: 250, weekly: 60,  unit: distance }
+  Hike:  { yearly: 300,  monthly: 25,  weekly: 6,   unit: distance }
+  Gym:   { yearly: 6000, monthly: 600, weekly: 150, unit: time }   # 分钟
 ```
 
-> use `--with-gpx` flag to save your gpx data
->
-> use `--from-auth-token` flag to login by refresh_token&user_id
 
-![image](https://user-images.githubusercontent.com/6956444/106879771-87c97380-6716-11eb-9c28-fbf70e15e1c3.png)
+## 部署
 
-example：
+项目通过 GitHub Actions 自动部署至 GitHub Pages，推送到 `master` 分支后自动触发构建，详见 `.github/workflows/gh-pages.yml`。
 
-```python
-python3(python) scripts/xingzhe_sync.py w0xxx 185000 --from-auth-token
-```
 
-</details>
-
-### RoadTrip(GoogleMaps)
-
-<details>
-<summary>Import KML from Google Maps</summary>
-
-1. Create a map in [Google Maps](https://www.google.com/maps/d/) (keep the route in one Layer)
-2. Export Layer to KML file
-3. Rename the file to `import.kml` and place it into `scripts`
-4. Modify `scripts/kml2polyline.py`, fill in the trip info
+## 项目结构
 
 ```
-# TODO modify here
-# trip name
-track.name = "2020-10 Tibet Road Trip"
-# start/end time Year-Month-Day-Hour-Minute
-track.start_time = datetime(2020, 9, 29, 10, 0)
-track.end_time = datetime(2020, 10, 10, 18, 0)
-# total distance
-distance = 4000  # KM
-# total days
-days = 12
-# average daily distance
-hours_per_day = 6
+src/
+├── App.tsx                      # 应用入口与路由
+├── i18n.ts                      # 中英文翻译字典
+├── types.ts                     # TypeScript 类型定义
+├── hooks/
+│   ├── useActivities.ts         # 数据过滤与格式化工具
+│   ├── useLocale.tsx            # 国际化 Context
+│   └── useTheme.ts              # 深色/浅色模式
+├── components/
+│   ├── Header.tsx               # 顶部导航与运动类型筛选
+│   ├── StatsCards.tsx           # 目标卡片与连续记录
+│   ├── ProfileCard.tsx          # 个人数据摘要
+│   ├── PersonalBest.tsx         # 个人最佳成绩
+│   ├── ContributionHeatmap.tsx  # 年度活动热力图
+│   ├── HeatmapPage.tsx          # 全年份热力图总览页
+│   ├── ActivityLog.tsx          # 活动记录表格
+│   ├── CalendarWidget.tsx       # 月度日历组件
+│   ├── MonthlyChart.tsx         # 月度统计柱状图
+│   ├── TrendCharts.tsx          # 趋势折线图
+│   ├── RouteMap.tsx             # Mapbox 路线地图
+│   └── TracksPage.tsx           # 轨迹墙页面
+└── static/
+    └── activities.json          # 活动数据（由 Python 脚本生成）
 ```
 
-5. Execute in Console
 
-```python
-python3(python) scripts\kml2polyline.py
-```
+## 致谢
 
-</details>
+- [running_page](https://github.com/yihong0618/running_page) — 数据同步与原始项目灵感, @[yihong0618](https://github.com/yihong0618)
+- [workouts_page](https://github.com/ben-29/workouts_page) — 多运动类型支持， @[ben-29](https://github.com/ben-29)
+- [RUN.LOG](https://github.com/yihong0618/running_page/issues/12#issuecomment-3689275071) 给我的页面设计灵感
 
-# Special thanks
+## License
 
-- @[yihong0618](https://github.com/yihong0618) for Awesome [running_page](https://github.com/yihong0618/running_page), Great Thanks
+MIT 

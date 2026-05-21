@@ -12,7 +12,7 @@ from polyline_processor import filter_out
 
 from .db import Activity, init_db, update_or_create_activity
 
-from synced_data_file_logger import save_synced_data_file_list, load_fit_name_mapping
+from synced_data_file_logger import save_synced_data_file_list
 
 
 IGNORE_BEFORE_SAVING = os.getenv("IGNORE_BEFORE_SAVING", False)
@@ -27,10 +27,6 @@ class Generator:
         self.client_secret = ""
         self.refresh_token = ""
         self.only_run = False
-
-    def update(self, sql):
-        self.session.execute(sql)
-        self.session.commit()
 
     def set_strava_config(self, client_id, client_secret, refresh_token):
         self.client_id = client_id
@@ -51,11 +47,16 @@ class Generator:
         print("Access ok")
 
     def sync(self, force):
+        """
+        Sync activities means sync from strava
+        TODO, better name later
+        """
         self.check_access()
 
         print("Start syncing")
         if force:
-            filters = {"before": datetime.datetime.utcnow()}
+            # filters = {"before": datetime.datetime.utcnow()}
+            filters = {"after": datetime.strptime("2022-01-01", "%Y-%m-%d")}
         else:
             last_activity = self.session.query(func.max(Activity.start_date)).scalar()
             if last_activity:
@@ -63,15 +64,23 @@ class Generator:
                 last_activity_date = last_activity_date.shift(days=-7)
                 filters = {"after": last_activity_date.datetime}
             else:
-                filters = {"before": datetime.datetime.utcnow()}
+                filters = {
+                    "before": datetime.datetime.utcnow(),
+                    "after": datetime.strptime("2022-01-01", "%Y-%m-%d"),
+                }
 
         for activity in self.client.get_activities(**filters):
             if self.only_run and activity.type != "Run":
                 continue
-            print(activity)    
             if IGNORE_BEFORE_SAVING:
-                activity.summary_polyline = filter_out(activity.summary_polyline)
+                if activity.map and activity.map.summary_polyline:
+                    activity.map.summary_polyline = filter_out(
+                        activity.map.summary_polyline
+                    )
             activity.source = "strava"
+            #  strava use total_elevation_gain as elevation_gain
+            activity.elevation_gain = activity.total_elevation_gain
+            activity.subtype = activity.type
             created = update_or_create_activity(self.session, activity)
             if created:
                 sys.stdout.write("+")
@@ -80,22 +89,56 @@ class Generator:
             sys.stdout.flush()
         self.session.commit()
 
-    def sync_from_data_dir(self, data_dir, file_suffix="gpx"):
+    def sync_recent(self, days=7):
+        """
+        Sync only activities from the last N days (default: 7).
+        Useful for lightweight daily/weekly refreshes.
+        """
+        self.check_access()
+
+        after = datetime.datetime.utcnow() - datetime.timedelta(days=days)
+        filters = {"after": after}
+        print(
+            f"Syncing activities after {after.strftime('%Y-%m-%d')} (last {days} days)"
+        )
+
+        count_new = 0
+        count_update = 0
+        for activity in self.client.get_activities(**filters):
+            if self.only_run and activity.type != "Run":
+                continue
+            if IGNORE_BEFORE_SAVING:
+                if activity.map and activity.map.summary_polyline:
+                    activity.map.summary_polyline = filter_out(
+                        activity.map.summary_polyline
+                    )
+            activity.source = "strava"
+            activity.elevation_gain = activity.total_elevation_gain
+            activity.subtype = activity.type
+            created = update_or_create_activity(self.session, activity)
+            if created:
+                sys.stdout.write("+")
+                count_new += 1
+            else:
+                sys.stdout.write(".")
+                count_update += 1
+            sys.stdout.flush()
+        self.session.commit()
+        print(f"\nDone: {count_new} new, {count_update} updated.")
+
+    def sync_from_data_dir(self, data_dir, file_suffix="gpx", activity_title_dict={}):
         loader = track_loader.TrackLoader()
-        tracks = loader.load_tracks(data_dir, file_suffix=file_suffix)
+        tracks = loader.load_tracks(
+            data_dir, file_suffix=file_suffix, activity_title_dict=activity_title_dict
+        )
         print(f"load {len(tracks)} tracks")
         if not tracks:
             print("No tracks found.")
             return
 
         synced_files = []
-        if file_suffix == "fit":
-            name_mapping = load_fit_name_mapping()
 
         for t in tracks:
-            activity_id = t.file_names[0].split(".")[0]
-            if file_suffix == "fit" and activity_id in name_mapping:
-                t.name = name_mapping[activity_id]
             created = update_or_create_activity(self.session, t.to_namedtuple())
             if created:
                 sys.stdout.write("+")
@@ -105,6 +148,16 @@ class Generator:
             sys.stdout.flush()
 
         save_synced_data_file_list(synced_files)
+
+        self.session.commit()
+
+    def sync_from_kml_track(self, track):
+        created = update_or_create_activity(self.session, track.to_namedtuple())
+        if created:
+            sys.stdout.write("+")
+        else:
+            sys.stdout.write(".")
+        sys.stdout.flush()
 
         self.session.commit()
 
@@ -137,6 +190,7 @@ class Generator:
         self.session.commit()
 
     def load(self):
+        # if sub_type is not in the db, just add an empty string to it
         activities = (
             self.session.query(Activity)
             .filter(Activity.distance > 0.1)
@@ -205,6 +259,19 @@ class Generator:
         try:
             activities = self.session.query(Activity).all()
             return [str(a.run_id) for a in activities]
+        except Exception as e:
+            # pass the error
+            print(f"something wrong with {str(e)}")
+            return []
+
+    def get_old_tracks_dates(self):
+        try:
+            activities = (
+                self.session.query(Activity)
+                .order_by(Activity.start_date_local.desc())
+                .all()
+            )
+            return [str(a.start_date_local) for a in activities]
         except Exception as e:
             # pass the error
             print(f"something wrong with {str(e)}")

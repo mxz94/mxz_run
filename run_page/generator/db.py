@@ -1,12 +1,20 @@
 import datetime
 import random
 import string
-import time
 
 import geopy
 from config import TYPE_DICT
 from geopy.geocoders import Nominatim
-from sqlalchemy import Column, Float, Integer, Interval, String, create_engine
+from sqlalchemy import (
+    Column,
+    Float,
+    Integer,
+    Interval,
+    String,
+    create_engine,
+    inspect,
+    text,
+)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -36,9 +44,8 @@ ACTIVITY_KEYS = [
     "summary_polyline",
     "average_heartrate",
     "average_speed",
+    "elevation_gain",
     "source",
-    "relive_url",
-    "video_url",
 ]
 
 
@@ -57,10 +64,9 @@ class Activity(Base):
     summary_polyline = Column(String)
     average_heartrate = Column(Float)
     average_speed = Column(Float)
+    elevation_gain = Column(Float)
     streak = None
     source = Column(String)
-    relive_url = Column(String)
-    video_url = Column(String)
 
     def to_dict(self):
         out = {}
@@ -99,7 +105,7 @@ def update_or_create_activity(session, run_activity):
                         )
                     )
                 # limit (only for the first time)
-                except Exception as e:
+                except Exception:
                     try:
                         location_country = str(
                             g.reverse(
@@ -107,7 +113,7 @@ def update_or_create_activity(session, run_activity):
                                 language="zh-CN",
                             )
                         )
-                    except Exception as e:
+                    except Exception:
                         pass
 
             activity = Activity(
@@ -122,6 +128,11 @@ def update_or_create_activity(session, run_activity):
                 location_country=location_country,
                 average_heartrate=run_activity.average_heartrate,
                 average_speed=float(run_activity.average_speed),
+                elevation_gain=(
+                    float(run_activity.elevation_gain)
+                    if run_activity.elevation_gain is not None
+                    else None
+                ),
                 summary_polyline=(
                     run_activity.map and run_activity.map.summary_polyline or ""
                 ),
@@ -137,6 +148,11 @@ def update_or_create_activity(session, run_activity):
             activity.type = type
             activity.average_heartrate = run_activity.average_heartrate
             activity.average_speed = float(run_activity.average_speed)
+            activity.elevation_gain = (
+                float(run_activity.elevation_gain)
+                if run_activity.elevation_gain is not None
+                else None
+            )
             activity.summary_polyline = (
                 run_activity.map and run_activity.map.summary_polyline or ""
             )
@@ -148,10 +164,37 @@ def update_or_create_activity(session, run_activity):
     return created
 
 
+def add_missing_columns(engine, model):
+    inspector = inspect(engine)
+    table_name = model.__tablename__
+    columns = {col["name"] for col in inspector.get_columns(table_name)}
+    missing_columns = []
+
+    for column in model.__table__.columns:
+        if column.name not in columns:
+            missing_columns.append(column)
+    if missing_columns:
+        with engine.connect() as conn:
+            for column in missing_columns:
+                column_type = str(column.type)
+                conn.execute(
+                    text(
+                        f"ALTER TABLE {table_name} ADD COLUMN {column.name} {column_type}"
+                    )
+                )
+
+
 def init_db(db_path):
     engine = create_engine(
         f"sqlite:///{db_path}", connect_args={"check_same_thread": False}
     )
     Base.metadata.create_all(engine)
-    session = sessionmaker(bind=engine)
-    return session()
+
+    # check missing columns
+    add_missing_columns(engine, Activity)
+
+    sm = sessionmaker(bind=engine)
+    session = sm()
+    # apply the changes
+    session.commit()
+    return session
