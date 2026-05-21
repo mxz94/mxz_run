@@ -49,10 +49,14 @@ jobs:
       SAVE_DATA_IN_GITHUB_CACHE: ${{ steps.set_output.outputs.SAVE_DATA_IN_GITHUB_CACHE }}
       DATA_CACHE_PREFIX: ${{ steps.set_output.outputs.DATA_CACHE_PREFIX }}
       BUILD_GH_PAGES: ${{ steps.set_output.outputs.BUILD_GH_PAGES }}
+      # 🔑 声明给外部 Job 调用的输出变量
+      has_updates: ${{ steps.check_changes.outputs.has_updates }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 拉取完整历史，确保 git status/diff 能够正常工作
 
       - name: Set up Python
         id: setup_python
@@ -232,6 +236,18 @@ jobs:
         if: env.USE_CLOUDFLARE_WARP == 'true'
         run: |
           warp-cli --accept-tos disconnect
+
+      # 🔑 根据当前工作区未提交的变化，判断 activities.json 是否被 python 脚本更新
+      - name: Check if activities.json changed
+        id: check_changes
+        run: |
+          if git status --porcelain | grep -q "src/static/activities.json"; then
+            echo "has_updates=true" >> "$GITHUB_OUTPUT"
+            echo "发现数据更新，准备在后续阶段打包部署..."
+          else
+            echo "has_updates=false" >> "$GITHUB_OUTPUT"
+            echo "运动数据未发生变化，后续部署任务将被跳过。"
+          fi
           
       - name: Push new runs
         if: env.SAVE_DATA_IN_GITHUB_CACHE != 'true'
@@ -249,12 +265,49 @@ jobs:
           echo "DATA_CACHE_PREFIX=${{ env.DATA_CACHE_PREFIX }}" >> "$GITHUB_OUTPUT"
           echo "BUILD_GH_PAGES=${{ env.BUILD_GH_PAGES }}" >> "$GITHUB_OUTPUT"
 
-  # publish_github_pages:
-  #   if: needs.sync.result == 'success' && needs.sync.outputs.BUILD_GH_PAGES == 'true'
-  #   name: Build and publish Github Pages
-  #   uses: ./.github/workflows/gh-pages.yml
-  #   with:
-  #     save_data_in_github_cache: ${{needs.sync.outputs.SAVE_DATA_IN_GITHUB_CACHE == 'true'}}
-  #     data_cache_prefix: ${{needs.sync.outputs.DATA_CACHE_PREFIX}}
-  #   needs:
-  #     - sync
+  # 🚀 部署 Job：负责切换前端分支、拉取数据、打包编译并通过 SCP 发送至服务器
+  deploy_to_server:
+    name: Build and Deploy to Private Server
+    needs: sync
+    # 限制开关：满足数据有更新，或者是手动点击触发时才运行
+    if: ${{ needs.sync.outputs.has_updates == 'true' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      # 🔑 切换并拉取存放前端源码的独立分支 (请将 'web-front' 改为你真正的前端分支名)
+      - name: Checkout Frontend Project
+        uses: actions/checkout@v4
+        with:
+          ref: 'web-front'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      # 从刚才跑完同步并已经 push 到 master 分支的路径拉取最新的数据文件
+      - name: Pull latest activities.json
+        run: |
+          curl -o src/static/activities.json https://raw.githubusercontent.com/mxz94/mxz_run/refs/heads/master/src/static/activities.json
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Server via SCP
+        uses: appleboy/scp-action@v0.1.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./dist/*"
+          target: "/www/wwwroot/malanxi/running"
