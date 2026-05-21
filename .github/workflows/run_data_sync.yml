@@ -55,8 +55,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # 拉取完整历史，确保 git status/diff 能够正常工作
 
       - name: Set up Python
         id: setup_python
