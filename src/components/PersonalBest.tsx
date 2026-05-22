@@ -16,6 +16,7 @@ function formatTime(seconds: number): string {
 }
 
 const DISTANCES = [
+  { key: '1K', min: 0.95, max: 1.2 },
   { key: '5K', min: 4.8, max: 5.5 },
   { key: '10K', min: 9.5, max: 11 },
   { key: 'Half Marathon', min: 20, max: 22.5 },
@@ -31,6 +32,7 @@ export function PersonalBest({ activities, onSelectActivity }: PersonalBestProps
   const labels: Record<string, string> = locale === 'zh'
     ? { '5K': '5公里', '10K': '10公里', 'Half Marathon': '半程马拉松', 'Marathon': '全程马拉松' }
     : { '5K': '5K', '10K': '10K', 'Half Marathon': 'Half Marathon', 'Marathon': 'Marathon' }
+  labels['1K'] = locale === 'zh' ? '1公里' : '1K'
 
   const bests = DISTANCES.map(({ key, min, max }) => {
     const matching = runs.filter(a => {
