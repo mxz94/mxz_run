@@ -2,14 +2,14 @@ import argparse
 import asyncio
 from datetime import datetime, timedelta
 from xml.etree import ElementTree
-
+import os
 import gpxpy
 import gpxpy.gpx
 from garmin_sync import Garmin
 from strava_sync import run_strava_sync
 from stravaweblib import DataFormat, WebClient
 from utils import make_strava_client
-
+os.environ["GARTH_TELEMETRY_ENABLED"] = "false"
 
 def generate_strava_run_points(start_time, strava_streams):
     """
