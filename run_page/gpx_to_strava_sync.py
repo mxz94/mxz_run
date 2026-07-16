@@ -64,8 +64,9 @@ def move_files_to_subdirectory(target_folder, sub_directory):
 
   print("All files have been moved to the subdirectory.")
 
-
 if __name__ == "__main__":
+  move_files_to_subdirectory(GPX_FOLDER, KEEP_GPX_FOLDER)
+if __name__ == "__main__1":
     if not os.path.exists(GPX_FOLDER):
         os.mkdir(GPX_FOLDER)
     parser = argparse.ArgumentParser()
