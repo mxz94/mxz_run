@@ -80,9 +80,18 @@ class Generator:
             sys.stdout.flush()
         self.session.commit()
 
-    def sync_from_data_dir(self, data_dir, file_suffix="gpx"):
+    def sync_from_data_dir(
+        self,
+        data_dir,
+        file_suffix="gpx",
+        deduplicate_by_start_time=False,
+        merge_tracks=True,
+        only_after_latest=False,
+    ):
         loader = track_loader.TrackLoader()
-        tracks = loader.load_tracks(data_dir, file_suffix=file_suffix)
+        tracks = loader.load_tracks(
+            data_dir, file_suffix=file_suffix, merge_tracks=merge_tracks
+        )
         print(f"load {len(tracks)} tracks")
         if not tracks:
             print("No tracks found.")
@@ -91,12 +100,39 @@ class Generator:
         synced_files = []
         if file_suffix == "fit":
             name_mapping = load_fit_name_mapping()
+        latest_start_time = self.session.query(
+            func.max(Activity.start_date_local)
+        ).scalar()
 
         for t in tracks:
             activity_id = t.file_names[0].split(".")[0]
             if file_suffix == "fit" and activity_id in name_mapping:
                 t.name = name_mapping[activity_id]
-            created = update_or_create_activity(self.session, t.to_namedtuple())
+            run_activity = t.to_namedtuple()
+            if (
+                only_after_latest
+                and latest_start_time
+                and run_activity.start_date_local <= latest_start_time
+            ):
+                sys.stdout.write("=")
+                synced_files.extend(t.file_names)
+                sys.stdout.flush()
+                continue
+            if deduplicate_by_start_time:
+                existing_activity = (
+                    self.session.query(Activity)
+                    .filter_by(start_date_local=run_activity.start_date_local)
+                    .first()
+                )
+                if (
+                    existing_activity
+                    and existing_activity.run_id != int(run_activity.id)
+                ):
+                    sys.stdout.write("=")
+                    synced_files.extend(t.file_names)
+                    sys.stdout.flush()
+                    continue
+            created = update_or_create_activity(self.session, run_activity)
             if created:
                 sys.stdout.write("+")
             else:

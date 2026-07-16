@@ -66,7 +66,7 @@ class TrackLoader:
             "fit": load_fit_file,
         }
 
-    def load_tracks(self, data_dir, file_suffix="gpx"):
+    def load_tracks(self, data_dir, file_suffix="gpx", merge_tracks=True):
         """Load tracks data_dir and return as a List of tracks"""
         file_names = [x for x in self._list_data_files(data_dir, file_suffix)]
         print(f"{file_suffix.upper()} files: {len(file_names)}")
@@ -82,8 +82,9 @@ class TrackLoader:
 
         tracks = self._filter_tracks(tracks)
 
-        # merge tracks that took place within one hour
-        tracks = self._merge_tracks(tracks)
+        # merge tracks that took place within one hour when requested
+        if merge_tracks:
+            tracks = self._merge_tracks(tracks)
         # filter out tracks with length < min_length
         return [t for t in tracks if t.length >= self.min_length]
 

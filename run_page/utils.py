@@ -48,9 +48,23 @@ def to_date(ts):
     raise ValueError(f"cannot parse timestamp {ts} into date with fmts: {ts_fmts}")
 
 
-def make_activities_file(sql_file, data_dir, json_file, file_suffix="gpx"):
+def make_activities_file(
+    sql_file,
+    data_dir,
+    json_file,
+    file_suffix="gpx",
+    deduplicate_by_start_time=False,
+    merge_tracks=True,
+    only_after_latest=False,
+):
     generator = Generator(sql_file)
-    generator.sync_from_data_dir(data_dir, file_suffix=file_suffix)
+    generator.sync_from_data_dir(
+        data_dir,
+        file_suffix=file_suffix,
+        deduplicate_by_start_time=deduplicate_by_start_time,
+        merge_tracks=merge_tracks,
+        only_after_latest=only_after_latest,
+    )
     activities_list = generator.load()
     with open(json_file, "w") as f:
         json.dump(activities_list, f, indent=0)
