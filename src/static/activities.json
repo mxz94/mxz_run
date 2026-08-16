@@ -5096,7 +5096,7 @@
 "average_speed": 4.792,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/vevWzN7PyGq",
-"video_url": "https://video.relive.cc/elif-03028453702_garmin-health_1779003998157.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-03028453702_garmin-health_1786859600992.mp4?x-ref=app",
 "streak": 2
 },
 {
@@ -6151,6 +6151,23 @@
 "source": "gpx.py -- https://github.com/tkrajina/gpxpy",
 "relive_url": "https://www.relive.com/view/vdvm78rGmx6",
 "video_url": "https://video.relive.cc/elif-62222992932_garmin-health_1786410411011.mp4?x-ref=app",
+"streak": 1
+},
+{
+"run_id": 1786790192000,
+"name": "\u508d\u665a\u8dd1\u6b65",
+"distance": 3945.578769481855,
+"moving_time": "0:35:30",
+"type": "Run",
+"start_date": "2026-08-15 10:36:32",
+"start_date_local": "2026-08-15 18:36:32",
+"location_country": "\u5b5d\u6587\u8857\u9053, \u9f99\u95e8\u8857\u9053, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "{lcrE{zrmTbDnExDtB`A|BnFrC|FnEhBT~A]~BfAc@JZZ@i@uB_AyA`@uCi@sFkFeFaCm@qB_EcBcBeDsPyN~AKo@eBoOgNvC]rBkBI{Gx@oGUkFnAkFeBkAcCwD|@s@xGKSmCoAtD~@sL",
+"average_heartrate": null,
+"average_speed": 1.8523843988177724,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/v1vj8pZ2VY6",
+"video_url": "https://video.relive.cc/elif-07660539932_garmin-health_1786859406795.mp4?x-ref=app",
 "streak": 1
 }
 ]
