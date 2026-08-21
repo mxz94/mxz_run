@@ -4943,7 +4943,7 @@
 "average_speed": 2.958,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/vevY7dPRBy6",
-"video_url": "https://video.relive.cc/elif-93388714202_garmin-health_1779439143787.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-93388714202_garmin-health_1787281428498.mp4?x-ref=app",
 "streak": 2
 },
 {
@@ -5164,7 +5164,7 @@
 "average_speed": 3.971,
 "source": "strava",
 "relive_url": "https://www.relive.com/view/v36A9j8XMG6",
-"video_url": "https://video.relive.cc/elif-80545706802_garmin-health_1779438958303.mp4?x-ref=app",
+"video_url": "https://video.relive.cc/elif-80545706802_garmin-health_1787281241879.mp4?x-ref=app",
 "streak": 1
 },
 {
@@ -6185,6 +6185,40 @@
 "source": "gpx.py -- https://github.com/tkrajina/gpxpy",
 "relive_url": "https://www.relive.com/view/v1Ow7My9nXO",
 "video_url": "https://video.relive.cc/elif-78903613042_garmin-health_1787118748709.mp4?x-ref=app",
+"streak": 1
+},
+{
+"run_id": 1787227520000,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 5772.29038936795,
+"moving_time": "0:38:32",
+"type": "Run",
+"start_date": "2026-08-20 12:05:20",
+"start_date_local": "2026-08-20 20:05:20",
+"location_country": "\u897f\u9a6c\u793e\u533a, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "yidrEksumTwAyHjB}HaDkIPsGk@eOb@yD]aA\\_HUaYXkrDf@eAv@Qpz@E~@gCxQJKuF",
+"average_heartrate": null,
+"average_speed": 2.496665393325238,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/v4OGzj2Xzmv",
+"video_url": "https://video.relive.cc/elif-57727955042_garmin-health_1787281060001.mp4?x-ref=app",
+"streak": 1
+},
+{
+"run_id": 1787232217000,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 4925.864612142245,
+"moving_time": "0:35:13",
+"type": "Run",
+"start_date": "2026-08-20 13:23:37",
+"start_date_local": "2026-08-20 21:23:37",
+"location_country": "\u7389\u6eaa\u897f\u8857, \u5eb7\u5e84\u793e\u533a, \u674e\u6751\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "c`drEag_nTyGMuDp@cAYY^JrMa@~Db@|@]hD\\xA@jmA[r_@TfsAUbKHrU{@zFjA|Xz@jGnBlG",
+"average_heartrate": null,
+"average_speed": 2.331218462916349,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/v8qkwd2AwKq",
+"video_url": "https://video.relive.cc/elif-79927955042_garmin-health_1787280879015.mp4?x-ref=app",
 "streak": 1
 }
 ]
