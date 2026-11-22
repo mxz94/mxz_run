@@ -6356,5 +6356,39 @@
 "relive_url": "https://www.relive.com/view/vYvrggoD1LO",
 "video_url": "https://video.relive.cc/elif-36026768052_garmin-health_1794747158688.mp4?x-ref=app",
 "streak": 1
+},
+{
+"run_id": 1795259603000,
+"name": "\u508d\u665a\u9a91\u884c",
+"distance": 5685.773293818236,
+"moving_time": "0:12:12",
+"type": "Ride",
+"start_date": "2026-11-21 11:13:23",
+"start_date_local": "2026-11-21 19:13:23",
+"location_country": "\u6768\u5802\u793e\u533a, \u5b5d\u6587\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "w|crEypumTP}GyH_@kD_AaAkA`BgG@mBuAkDm@qD?u\\_FmCcdAy^_HcD{Dyb@uC_e@uCmcA?^oBy@aXHQUVeAaAfAqA_B",
+"average_heartrate": null,
+"average_speed": 7.767449854942946,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/vE6JD8j9exv",
+"video_url": "https://video.relive.cc/elif-12230926152_garmin-health_1795354344138.mp4?x-ref=app",
+"streak": 1
+},
+{
+"run_id": 1795321719000,
+"name": "\u4e2d\u5348\u8dd1\u6b65",
+"distance": 2216.5928212717463,
+"moving_time": "0:14:27",
+"type": "Run",
+"start_date": "2026-11-22 04:28:39",
+"start_date_local": "2026-11-22 12:28:39",
+"location_country": "\u5965\u4f53\u897f\u8857, \u674e\u6751\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "webrEi}~mTvDIr@}A_AoA_ELm@`Bx@`AzD?x@aBcAqAcEPg@vAbAlAtDEr@uA}@yAuDF{@nAv@vAnDBfAeAy@iB_EDu@|A`AjAxDEt@_Au@gBgEDs@zAr@fA~D@|@iA",
+"average_heartrate": null,
+"average_speed": 2.5566237846271584,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/v7O9zejBNL6",
+"video_url": "https://video.relive.cc/elif-44830926152_garmin-health_1795354174316.mp4?x-ref=app",
+"streak": 2
 }
 ]
