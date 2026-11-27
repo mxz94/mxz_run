@@ -6441,5 +6441,22 @@
 "relive_url": "https://www.relive.com/view/v1vj8mJB3J6",
 "video_url": "https://video.relive.cc/elif-68222660252_garmin-health_1795707002315.mp4?x-ref=app",
 "streak": 1
+},
+{
+"run_id": 1795783386000,
+"name": "\u665a\u4e0a\u8dd1\u6b65",
+"distance": 5205.573062848009,
+"moving_time": "0:30:12",
+"type": "Run",
+"start_date": "2026-11-27 12:43:06",
+"start_date_local": "2026-11-27 20:43:06",
+"location_country": "\u6d1b\u9633\u5e02\u4f53\u80b2\u4e2d\u5fc3, \u5965\u4f53\u897f\u8857, \u674e\u6751\u8857\u9053, \u4f0a\u6ee8\u533a, \u6d1b\u9f99\u533a, \u6d1b\u9633\u5e02, \u6cb3\u5357\u7701, \u4e2d\u56fd",
+"summary_polyline": "iabrEyc_nTiDTg@p@@rAbAx@tEO\\yBcAeAsERe@|@Bx@bA`ApEI^k@BoAiAgA_EHi@h@IbAdAtAlEEl@kBeAyAoEJg@v@Az@`AjAvEK`@wBeAiAoEPg@|@DbAjAz@|DEd@e@HoA_AqAoEHo@jBz@pAxECb@i@DoAiAkAcEJi@l@EjA`AfAtEGf@sB{@mAsEFi@j@GdAnApA`EGn@oBY{@s@[oEP_@r@@pAfAv@pEO\\u@?kAoA}@_ELg@j@ClAfAdAnEIf@sBiAoAcEHg@d@KnApAnAdEIl@gB}@{A}EFe@^IpA",
+"average_heartrate": null,
+"average_speed": 2.872832816141285,
+"source": "gpx.py -- https://github.com/tkrajina/gpxpy",
+"relive_url": "https://www.relive.com/view/v8qVGAKXN7v",
+"video_url": "https://video.relive.cc/elif-90350461252_garmin-health_1795792864832.mp4?x-ref=app",
+"streak": 2
 }
 ]
